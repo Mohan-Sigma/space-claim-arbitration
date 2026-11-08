@@ -1,0 +1,68 @@
+{
+ "probes": {
+  "equal": {
+   "objectives": {
+    "runtime": 55.305,
+    "siren": 2.642,
+    "voice": 75.169,
+    "l5": 0.174
+   },
+   "feasible": true
+  },
+  "runtime": {
+   "objectives": {
+    "runtime": 62.28,
+    "siren": 2.889,
+    "voice": 74.627,
+    "l5": 0.092
+   },
+   "feasible": true
+  },
+  "siren": {
+   "objectives": {
+    "runtime": 62.031,
+    "siren": 3.141,
+    "voice": 76.044,
+    "l5": 0.073
+   },
+   "feasible": true
+  },
+  "voice": {
+   "objectives": {
+    "runtime": 51.425,
+    "siren": 2.261,
+    "voice": 77.728,
+    "l5": 0.153
+   },
+   "feasible": true
+  },
+  "l5": {
+   "objectives": {
+    "runtime": 45.198,
+    "siren": 2.098,
+    "voice": 74.611,
+    "l5": 0.267
+   },
+   "feasible": true
+  }
+ },
+ "achieved_range": {
+  "runtime": [
+   45.198,
+   62.28
+  ],
+  "siren": [
+   2.098,
+   3.141
+  ],
+  "voice": [
+   74.611,
+   77.728
+  ],
+  "l5": [
+   0.073,
+   0.267
+  ]
+ },
+ "note": "Five neutral probe solves (weighted sum, no floors) of the actual design problem; values are achieved, feasible designs. Ranges are indicative, not exhaustive."
+}

@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, please cite the paper below."
+title: "Space-Claim Arbitration Benchmark"
+authors:
+  - family-names: Manoharan
+    given-names: Mohan Raj
+    orcid: "https://orcid.org/0009-0002-0790-761X"
+license: MIT
+preferred-citation:
+  type: article
+  title: "AI Should Formulate, Not Negotiate: LLM-Formulated Target Cascading for Space-Claim Arbitration in Compact Product Design"
+  authors:
+    - family-names: Manoharan
+      given-names: Mohan Raj
+      orcid: "https://orcid.org/0009-0002-0790-761X"
+  journal: "IEEE Transactions on Systems, Man, and Cybernetics: Systems"
+  year: 2026
+  notes: "Submitted"

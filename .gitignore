@@ -1,0 +1,11 @@
+# secrets
+anthropic_key.txt
+*.key
+.env
+# python
+__pycache__/
+*.pyc
+.venv/
+# checkpoints and logs
+*.ckpt.json
+log_*.txt

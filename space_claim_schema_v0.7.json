@@ -1,0 +1,1235 @@
+{
+  "schema_version": "0.7",
+  "schema_name": "space-claim-arbitration",
+  "generated": "2026-11-01",
+  "supersedes": "0.6",
+  "changelog": [
+    "voice metric REPLACED: 100 x ANSI S3.5-1997 SII (third-octave procedure, MOSQITO 1.2.1 implementation)",
+    "voice test condition: far-end speech, ANSI normal-effort spectrum shape, 0.1 W rms drive, listener 0.3 m, 55 dB SPL speech-shaped ambient, normal hearing",
+    "old f_lo/ripple proxy removed (saturated when the low-frequency corner exceeded 1 kHz)"
+  ],
+  "_provenance_legend": {
+    "spec": "published manufacturer specification",
+    "teardown": "measured or reported in public teardown",
+    "derived": "computed from spec/teardown values",
+    "estimated": "engineering estimate \u2014 REFINE ME",
+    "user": "set by domain judgement",
+    "unconfirmed": "assumed pending teardown verification \u2014 SENSITIVITY PARAMETER",
+    "confirmed": "set or verified by the domain owner (user), v0.4"
+  },
+  "product": {
+    "id": "reference-47mm-rugged-watch",
+    "name": "[withheld] [withheld]",
+    "release": "2024-07-24",
+    "role": "reference platform \u2014 benchmark ground truth only, not a redesign target",
+    "mass_total_g": {
+      "value": 60.5,
+      "source": "spec"
+    },
+    "ingress_rating": {
+      "value": "IP68 + 10ATM (100 m)",
+      "source": "spec"
+    },
+    "shock_rating": {
+      "value": "MIL-STD-810H",
+      "source": "spec"
+    }
+  },
+  "coordinate_frame": {
+    "origin": "geometric centre of caseback outer face",
+    "x": "+X toward button side (3 o'clock)",
+    "y": "+Y toward 12 o'clock",
+    "z": "+Z from caseback toward display",
+    "units": {
+      "length": "mm",
+      "volume": "mm^3",
+      "mass": "g",
+      "area": "mm^2",
+      "spl": "dB"
+    }
+  },
+  "envelope": {
+    "outer": {
+      "shape": "rounded_rect_cushion",
+      "x_mm": {
+        "value": 47.1,
+        "source": "spec"
+      },
+      "y_mm": {
+        "value": 47.4,
+        "source": "spec"
+      },
+      "z_mm": {
+        "value": 12.1,
+        "source": "spec"
+      },
+      "corner_radius_mm": {
+        "value": 13.0,
+        "source": "estimated"
+      }
+    },
+    "fixed_regions": [
+      {
+        "id": "cover_sapphire",
+        "shape": "disc",
+        "diameter_mm": 40.0,
+        "thickness_mm": 1.0,
+        "z_range": [
+          11.1,
+          12.1
+        ],
+        "material": "sapphire",
+        "negotiable": false,
+        "source": "estimated"
+      },
+      {
+        "id": "display_module",
+        "description": "1.5in Super AMOLED, 480x480",
+        "shape": "disc",
+        "diameter_mm": 40.0,
+        "thickness_mm": 1.2,
+        "z_range": [
+          9.9,
+          11.1
+        ],
+        "negotiable": false,
+        "source": "estimated"
+      },
+      {
+        "id": "caseback_window",
+        "shape": "disc",
+        "diameter_mm": 17.0,
+        "area_mm2": 227,
+        "thickness_mm": 0.8,
+        "z_range": [
+          0.0,
+          0.8
+        ],
+        "centred": true,
+        "negotiable": false,
+        "source": "estimated"
+      },
+      {
+        "id": "bioactive_sensor_stack",
+        "description": "optical HR + ECG + BIA + IR temp",
+        "shape": "disc",
+        "diameter_mm": 16.0,
+        "thickness_mm": 2.0,
+        "z_range": [
+          0.8,
+          2.8
+        ],
+        "negotiable": false,
+        "source": "estimated"
+      },
+      {
+        "id": "qi_charging_coil",
+        "shape": "annulus",
+        "inner_diameter_mm": 20.0,
+        "outer_diameter_mm": 30.0,
+        "annulus_area_mm2": 393,
+        "thickness_mm": 0.55,
+        "z_range": [
+          0.8,
+          1.35
+        ],
+        "negotiable": false,
+        "decision": "FIXED per v0.2",
+        "exclusion_disc_mm": 30.0,
+        "_note": "no conductor within OD30 on -Z; blocks 707 mm^2 of caseback plane"
+      },
+      {
+        "id": "barometer_vent",
+        "decision": "SEPARATE SEALED-MEMBRANE PATH per v0.2",
+        "membrane_type": "ePTFE pressure-equalising",
+        "aperture_area_mm2": 1.2,
+        "independent_pressure_rating_mpa": 1.0,
+        "negotiable": false,
+        "source": "estimated"
+      },
+      {
+        "id": "side_buttons",
+        "count": 3,
+        "intrusion_volume_mm3": 420,
+        "negotiable": false,
+        "source": "estimated"
+      }
+    ],
+    "interior_gross_mm3": {
+      "value": 14430,
+      "source": "derived"
+    },
+    "interior_contested_mm3": {
+      "value": 11200,
+      "source": "derived",
+      "_note": "R6 peripheral keepout is a REGION WITHIN this pool, not additional to it"
+    }
+  },
+  "contested_resources": [
+    {
+      "id": "R1_interior_volume",
+      "type": "volume",
+      "total": 11200,
+      "unit": "mm^3",
+      "description": "Primary zero-sum resource. All volumetric claims draw from this pool, including R6.",
+      "total_depends_on_wall": "11200 - 1500*(t_wall - 1.2) mm^3"
+    },
+    {
+      "id": "R2_caseback_plane_area",
+      "type": "area",
+      "total": 1143,
+      "unit": "mm^2",
+      "source": "derived",
+      "derivation": "interior footprint 1850 minus Qi exclusion disc OD30 (707)",
+      "description": "Battery footprint vs thermal spreader \u2014 two-way contest."
+    },
+    {
+      "id": "R3_board_area",
+      "type": "area",
+      "total": 1850,
+      "unit": "mm^2"
+    },
+    {
+      "id": "R4_wall_section",
+      "type": "thickness",
+      "nominal_mm": 1.2,
+      "min_mm": 0.7,
+      "max_mm": 1.8
+    },
+    {
+      "id": "R5_mass_budget",
+      "type": "outcome",
+      "total": 60.5,
+      "unit": "g",
+      "source": "spec",
+      "_v04": "not a cap; minimise or report (user decision)"
+    },
+    {
+      "id": "R6_peripheral_keepout",
+      "type": "volume",
+      "total": 2400,
+      "unit": "mm^3",
+      "subset_of": "R1_interior_volume",
+      "source": "estimated",
+      "description": "Non-conductive volume within 4 mm of perimeter. Radiating antennas + NFC loop."
+    },
+    {
+      "id": "R7_port_area",
+      "type": "area",
+      "total": 12.0,
+      "unit": "mm^2",
+      "source": "estimated",
+      "scope": "speaker outlet(s) + microphone inlet ONLY",
+      "excludes": [
+        "barometer_vent"
+      ],
+      "_v03_note": "R7.total is the GEOMETRIC maximum openable area. structure.max_mm2 = 8.0 is the tighter limit that preserves 1.5x pressure margin. The gap between 8.0 and 12.0 is the contested band."
+    },
+    {
+      "id": "R8_thermal_budget",
+      "type": "temperature",
+      "skin_limit_c": 43.0,
+      "ambient_ref_c": 25.0,
+      "source": "estimated"
+    }
+  ],
+  "claimants": [
+    {
+      "id": "battery",
+      "domain": "power",
+      "agent": "battery_agent",
+      "claim_type": "point",
+      "claims": [
+        {
+          "resource": "R1_interior_volume",
+          "min_mm3": 2600,
+          "target_mm3": 3786,
+          "max_mm3": 5200,
+          "source": "derived",
+          "_derivation": "590 mAh @ 3.85 V = 2.2715 Wh; 600 Wh/L curved pouch -> 3786 mm^3"
+        },
+        {
+          "resource": "R2_caseback_plane_area",
+          "min_mm2": 520,
+          "target_mm2": 800,
+          "max_mm2": 960
+        },
+        {
+          "resource": "R5_mass_budget",
+          "target_g": 11.5,
+          "source": "estimated"
+        }
+      ],
+      "geometry": {
+        "shape_class": "deformable_prism",
+        "deformable": true,
+        "aspect_ratio_bounds": {
+          "min_thickness_mm": 2.6,
+          "max_thickness_mm": 4.8
+        }
+      },
+      "placement": {
+        "region_preference": "caseback-adjacent, offset from centre",
+        "keepout_from": [
+          "qi_charging_coil_exclusion_disc",
+          "bioactive_sensor_stack",
+          "R6_peripheral_keepout"
+        ],
+        "must_avoid_bending": true
+      },
+      "performance_model": "PM_battery_runtime",
+      "_v03_note": "now also serves PM_siren_endurance \u2014 battery volume sets how long the emergency beacon lasts"
+    },
+    {
+      "id": "acoustics",
+      "domain": "audio",
+      "agent": "acoustic_agent",
+      "claim_type": "frontier",
+      "_v03_restructure": "This claimant is a NESTED MULTI-OBJECTIVE SUBPROBLEM. It does not emit a single claim \u2014 it emits a Pareto frontier over (volume, port_area) -> (voice_score, siren_spl), and the arbiter selects a point on it.",
+      "configuration": {
+        "driver_count": {
+          "value": 1,
+          "source": "confirmed",
+          "evidence": [
+            "parts market lists one speaker module for SM-L700/SM-L705",
+            "[withheld] manual: 'dual microphones' but always 'the speaker'",
+            "iFixit 2024 teardown surfaces no second driver"
+          ]
+        }
+      },
+      "load_cases": [
+        {
+          "id": "voice_media",
+          "description": "call audio, media playback, notification tones",
+          "bandwidth_hz": [
+            300,
+            8000
+          ],
+          "target_spl_db_at_10cm": 78,
+          "duty": "intermittent, minutes",
+          "objectives": [
+            "minimise f_c",
+            "minimise in-band ripple"
+          ],
+          "wants": {
+            "back_volume": "large, SEALED",
+            "port_area": "minimal",
+            "helmholtz_tuning": "out of band (>8 kHz) or heavily damped",
+            "duct_damping": "high"
+          },
+          "performance_model": "PM_acoustic_voice_intelligibility",
+          "metric": {
+            "name": "SII (ANSI S3.5-1997)",
+            "score": "100 x SII",
+            "procedure": "third-octave, 18 bands 160-8000 Hz",
+            "condition": {
+              "drive_w_rms": 0.1,
+              "listener_m": 0.3,
+              "ambient_db_spl": 55,
+              "ambient_shape": "speech-shaped"
+            },
+            "interpretation": "SII >= 0.75 commonly read as good communication"
+          }
+        },
+        {
+          "id": "siren_emergency",
+          "description": "86 dB emergency beacon, two alternating high-pitched patterns",
+          "bandwidth_hz": [
+            3000,
+            3400
+          ],
+          "target_spl_db_at_1m": {
+            "value": 86,
+            "source": "spec"
+          },
+          "implied_spl_db_at_10cm": {
+            "value": 106,
+            "source": "derived"
+          },
+          "duty": "CONTINUOUS, multiple hours, runs until battery exhaustion",
+          "duty_source": "spec \u2014 documented as repeating for several hours until stopped or battery depleted",
+          "objectives": [
+            "maximise SPL at f_tuned",
+            "maximise endurance"
+          ],
+          "wants": {
+            "back_volume": "moderate",
+            "port_area": "maximum when front cavity is large; SMALL resonant port when front cavity is small (both branches exist)",
+            "duct_damping": "low (high Q)"
+          },
+          "performance_model": "PM_acoustic_siren_spl",
+          "endurance_model": "PM_siren_endurance",
+          "reference_distance_m": {
+            "value": 1.0,
+            "source": "derived",
+            "evidence": "180 m audibility (spec) implies ~1 m reference"
+          },
+          "duty_cycle": {
+            "value": 0.5,
+            "source": "estimated",
+            "basis": "pattern confirmed gapped by user; value not published"
+          }
+        }
+      ],
+      "internal_trade_variables": [
+        {
+          "id": "t1_back_front_split",
+          "range": [
+            0.3,
+            0.95
+          ]
+        },
+        {
+          "id": "t2_outlet_slit_height_mm",
+          "range": [
+            0.3,
+            3.5
+          ],
+          "_note": "h >= sqrt(port area) means square/round outlet"
+        },
+        {
+          "id": "t3_mesh_specific_resistance_rayl",
+          "range": [
+            0,
+            200
+          ],
+          "_note": ">= 20 in open architecture"
+        }
+      ],
+      "claims": [
+        {
+          "resource": "R1_interior_volume",
+          "min_mm3": 900,
+          "target_mm3": 1460,
+          "max_mm3": 2400,
+          "breakdown": {
+            "driver_mm3": {
+              "value": 450,
+              "source": "estimated"
+            },
+            "back_and_front_free_volume_mm3": {
+              "value": 920,
+              "source": "derived"
+            }
+          }
+        },
+        {
+          "resource": "R7_port_area",
+          "min_mm2": 3.0,
+          "target_mm2": 9.0,
+          "max_mm2": 11.0,
+          "_note": "R7 pool 12.0 minus 1.0 mm^2 mic"
+        },
+        {
+          "resource": "R5_mass_budget",
+          "target_g": 2.4,
+          "source": "estimated"
+        }
+      ],
+      "geometry": {
+        "shape_class": "driver_plus_free_cavity",
+        "deformable": true,
+        "_note": "back volume is topologically free \u2014 any leftover pocket qualifies. No packing formulation captures this."
+      },
+      "placement": {
+        "must_touch": [
+          "case_wall"
+        ],
+        "region_preference": "perimeter, opposite button side",
+        "duct_length_max_mm": 6.0,
+        "driver_separation_min_mm": {
+          "value": 8.0,
+          "source": "estimated",
+          "_note": "if driver_count = 2, spacing sets the coherent summation gain"
+        }
+      },
+      "frontier_model": "PM_acoustic_internal_pareto",
+      "membrane": {
+        "type": "ePTFE acoustic vent",
+        "reference_part": "Gore GAW346-class",
+        "rating": "100 m / 15 min, ISO 22810",
+        "insertion_loss_db_at_1khz": {
+          "value": 4.0,
+          "bound": "max",
+          "source": "spec"
+        },
+        "reference_inner_diameter_mm": 2.0,
+        "reference_thickness_mm": 0.4,
+        "acoustic_resistance_pa_s_m3_at_2mm": {
+          "value": 2500000.0,
+          "source": "derived",
+          "derivation": "4 dB IL vs ~2.0e6 Pa.s/m^3 radiation mass reactance of a 2 mm port at 1 kHz; assumes mostly resistive membrane"
+        },
+        "specific_resistance_pa_s_m": {
+          "value": 7.85,
+          "source": "derived"
+        },
+        "modelling": {
+          "conservative": "4 dB flat loss at siren frequency + membrane R in duct Q",
+          "physical": "loss computed per design at 3.2 kHz from specific resistance; ~0.02 dB with the watch duct"
+        }
+      },
+      "driver_model": {
+        "class": "18x13x2.5 mm",
+        "Re_ohm": 7.2,
+        "Le_uH": 70,
+        "Bl_Tm": 1.086,
+        "Mms_mg": 135,
+        "Rms_Ns_m": 0.176,
+        "Cms_m_per_N": 0.000753,
+        "fs_free_air_hz": 500,
+        "Sd_mm2": 157,
+        "P_rated_w": 1.0,
+        "envelope_mm3": 540,
+        "sensitivity_db_1w_10cm": {
+          "typ": 95,
+          "min": 92,
+          "max": 98
+        },
+        "note": "datasheet Qes 5.2-6.3 is consistent with the 92 dB minimum, not the 95 dB typical",
+        "source": "Same Sky CMS-18132-18SP, CMS-18138A-SP"
+      },
+      "architecture": {
+        "options": [
+          "membrane",
+          "open"
+        ],
+        "status": "CONFIRMED open (user, 2026-11-01)",
+        "evidence_for_open": [
+          "GAW346 carries a delta-SNR spec (microphone metric)",
+          "Gore IL measured on a MEMS-mic rig",
+          "GAW346-class membrane is ~4 mm^3 equivalent air: too stiff for a 150-500 mm^3 front cavity",
+          "[withheld] and Apple water-eject features imply water enters the speaker cavity",
+          "Apple: siren quieter when wet"
+        ],
+        "selected": "open"
+      }
+    },
+    {
+      "id": "antenna",
+      "domain": "rf",
+      "agent": "rf_agent",
+      "claim_type": "point",
+      "scope": "radiating antennas only \u2014 NFC handled separately",
+      "bands": [
+        {
+          "name": "GNSS_L1",
+          "f_mhz": 1575.42,
+          "source": "spec"
+        },
+        {
+          "name": "GNSS_L5",
+          "f_mhz": 1176.45,
+          "source": "spec"
+        },
+        {
+          "name": "BT_WiFi_2G4",
+          "f_mhz": 2450,
+          "source": "spec"
+        },
+        {
+          "name": "WiFi_5G",
+          "f_mhz": 5500,
+          "source": "spec"
+        },
+        {
+          "name": "LTE_lowband",
+          "f_mhz": 700,
+          "source": "spec",
+          "_note": "worst case for Chu limit"
+        }
+      ],
+      "claims": [
+        {
+          "resource": "R6_peripheral_keepout",
+          "min_mm3": 900,
+          "target_mm3": 1500,
+          "max_mm3": 2400
+        },
+        {
+          "resource": "R4_wall_section",
+          "preferred_mm": 0.8
+        }
+      ],
+      "geometry": {
+        "shape_class": "clearance_volume",
+        "deformable": true,
+        "requires_dielectric": true
+      },
+      "placement": {
+        "must_touch": [
+          "case_perimeter"
+        ],
+        "keepout_from": [
+          "battery",
+          "thermal_spreader",
+          "any_conductor"
+        ],
+        "min_clearance_to_conductor_mm": 1.5
+      },
+      "performance_model": "PM_antenna_chu_efficiency"
+    },
+    {
+      "id": "nfc",
+      "domain": "rf",
+      "agent": "nfc_agent",
+      "claim_type": "point",
+      "operating_frequency_mhz": {
+        "value": 13.56,
+        "source": "spec"
+      },
+      "coupling_type": "magnetic near-field, not radiating",
+      "claims": [
+        {
+          "resource": "R6_peripheral_keepout",
+          "min_mm3": 180,
+          "target_mm3": 320,
+          "max_mm3": 520
+        },
+        {
+          "resource": "R1_interior_volume",
+          "min_mm3": 110,
+          "target_mm3": 180,
+          "max_mm3": 300,
+          "_note": "ferrite backing \u2014 mandatory over titanium"
+        },
+        {
+          "resource": "R5_mass_budget",
+          "target_g": 0.9,
+          "source": "estimated"
+        }
+      ],
+      "geometry": {
+        "shape_class": "planar_loop_plus_ferrite",
+        "deformable": true,
+        "loop_turns": 4,
+        "ferrite_thickness_mm": {
+          "min": 0.1,
+          "target": 0.2,
+          "max": 0.35
+        },
+        "ferrite_mu_r": 120
+      },
+      "placement": {
+        "region_preference": "perimeter loop or caseback annulus",
+        "min_separation_from_qi_coil_mm": 2.0,
+        "conflicts_with": [
+          "antenna",
+          "qi_charging_coil",
+          "structure"
+        ]
+      },
+      "performance_model": "PM_nfc_coupling",
+      "requirement": {
+        "read_range_mm": 10,
+        "standard": "ISO/IEC 14443"
+      }
+    },
+    {
+      "id": "haptics",
+      "domain": "mechanical",
+      "agent": "haptics_agent",
+      "claim_type": "point",
+      "claims": [
+        {
+          "resource": "R1_interior_volume",
+          "min_mm3": 200,
+          "target_mm3": 350,
+          "max_mm3": 620
+        },
+        {
+          "resource": "R5_mass_budget",
+          "target_g": 1.8,
+          "source": "estimated"
+        }
+      ],
+      "geometry": {
+        "shape_class": "rigid_prism",
+        "deformable": false,
+        "stroke_axis": "X",
+        "min_stroke_mm": 0.35
+      },
+      "placement": {
+        "region_preference": "high moment-arm from wrist contact patch",
+        "requires_rigid_mount_to": "structure"
+      },
+      "performance_model": "PM_haptic_force",
+      "_v03_note": "siren is documented as accompanied by wrist taps \u2014 haptics inherits part of the siren duty cycle"
+    },
+    {
+      "id": "main_board",
+      "domain": "electrical",
+      "agent": "ee_agent",
+      "claim_type": "point",
+      "layer_count": {
+        "value": 10,
+        "source": "user",
+        "decision": "FIXED per v0.2"
+      },
+      "components": [
+        {
+          "id": "soc",
+          "part": "[SoC withheld]",
+          "process_nm": 3,
+          "source": "spec",
+          "footprint_mm2": 100,
+          "height_mm": 1.0,
+          "tdp_sustained_w": 0.9,
+          "tdp_peak_w": 2.4
+        },
+        {
+          "id": "memory",
+          "part": "2 GB RAM + 32/64 GB storage",
+          "source": "spec"
+        },
+        {
+          "id": "pmic"
+        },
+        {
+          "id": "rf_frontend"
+        },
+        {
+          "id": "audio_amp",
+          "sustained_w_siren": {
+            "value": 0.5,
+            "source": "derived"
+          },
+          "_note": "feeds C12 thermal and C13 endurance"
+        }
+      ],
+      "claims": [
+        {
+          "resource": "R3_board_area",
+          "min_mm2": 950,
+          "target_mm2": 1250,
+          "max_mm2": 1500
+        },
+        {
+          "resource": "R1_interior_volume",
+          "min_mm3": 2100,
+          "target_mm3": 2800,
+          "max_mm3": 3600
+        }
+      ],
+      "geometry": {
+        "shape_class": "planar_annulus_or_disc",
+        "deformable": true
+      },
+      "performance_model": "PM_board_routability"
+    },
+    {
+      "id": "thermal",
+      "domain": "thermal",
+      "agent": "thermal_agent",
+      "claim_type": "point",
+      "claims": [
+        {
+          "resource": "R2_caseback_plane_area",
+          "min_mm2": 180,
+          "target_mm2": 320,
+          "max_mm2": 520
+        },
+        {
+          "resource": "R1_interior_volume",
+          "min_mm3": 120,
+          "target_mm3": 250,
+          "max_mm3": 420
+        }
+      ],
+      "geometry": {
+        "shape_class": "conduction_path",
+        "deformable": true
+      },
+      "placement": {
+        "must_connect": [
+          "soc",
+          "case_wall"
+        ],
+        "conflicts_with": [
+          "battery",
+          "antenna",
+          "nfc"
+        ]
+      },
+      "performance_model": "PM_thermal_skin_temp",
+      "load_cases": [
+        "nominal",
+        "siren_sustained"
+      ],
+      "_v03_note": "siren_sustained is the NEW governing thermal case: SoC 0.9 W + amp 0.5 W for multiple hours"
+    },
+    {
+      "id": "structure",
+      "domain": "mechanical",
+      "agent": "structure_agent",
+      "claim_type": "point",
+      "claims": [
+        {
+          "resource": "R4_wall_section",
+          "min_mm": 1.0,
+          "target_mm": 1.2,
+          "max_mm": 1.8
+        },
+        {
+          "resource": "R1_interior_volume",
+          "min_mm3": 1400,
+          "target_mm3": 1800,
+          "max_mm3": 2400
+        },
+        {
+          "resource": "R5_mass_budget",
+          "target_g": 24.0,
+          "source": "estimated"
+        },
+        {
+          "resource": "R7_port_area",
+          "max_mm2": 8.0,
+          "_note": "acoustics now demands 11.0 at target. Violated by 3.0 mm^2."
+        }
+      ],
+      "requirements": {
+        "external_pressure_mpa": {
+          "value": 1.0,
+          "source": "derived"
+        },
+        "drop_spec": {
+          "value": "MIL-STD-810H",
+          "source": "spec"
+        },
+        "max_caseback_deflection_um": {
+          "value": 40,
+          "source": "estimated"
+        },
+        "pressure_margin_target": 1.5
+      },
+      "performance_model": "PM_structural_margin"
+    }
+  ],
+  "couplings": [
+    {
+      "id": "C1_volume_zero_sum",
+      "type": "resource_conservation",
+      "expression": "sum(R1 claims) + sum(R6 claims) <= 11200",
+      "participants": [
+        "battery",
+        "acoustics",
+        "haptics",
+        "main_board",
+        "thermal",
+        "structure",
+        "antenna",
+        "nfc"
+      ],
+      "severity": "hard"
+    },
+    {
+      "id": "C2_caseback_two_way",
+      "type": "resource_conservation",
+      "expression": "battery.caseback_area + thermal.spreader_area <= 1143",
+      "participants": [
+        "battery",
+        "thermal"
+      ],
+      "severity": "hard",
+      "slack_at_target": "23 mm^2 \u2014 saturated but feasible"
+    },
+    {
+      "id": "C3_port_vs_ingress",
+      "type": "direct_opposition",
+      "expression": "acoustics.port_area raises siren SPL but degrades 10ATM margin",
+      "participants": [
+        "acoustics",
+        "structure"
+      ],
+      "severity": "hard",
+      "status": "RESOLVABLE: small resonant port + small front cavity meets 86 dB with >=1.5x margin (Arm 2)",
+      "_note": "STAR CONFLICT. Both endpoints publicly specified (86 dB @ 1 m, 10ATM)."
+    },
+    {
+      "id": "C4_antenna_vs_titanium",
+      "type": "direct_opposition",
+      "participants": [
+        "antenna",
+        "structure",
+        "thermal",
+        "battery"
+      ],
+      "severity": "soft_penalised"
+    },
+    {
+      "id": "C5_thermal_vs_battery_footprint",
+      "type": "shared_surface",
+      "participants": [
+        "thermal",
+        "battery"
+      ],
+      "severity": "soft_penalised"
+    },
+    {
+      "id": "C6_mass_conservation",
+      "type": "resource_conservation",
+      "expression": "sum(R5 claims) <= 60.5 g",
+      "participants": [
+        "battery",
+        "structure",
+        "haptics",
+        "main_board",
+        "acoustics",
+        "nfc"
+      ],
+      "severity": "outcome",
+      "_v04": "mass cap removed"
+    },
+    {
+      "id": "C7_board_vs_battery_plane",
+      "type": "stack_height",
+      "expression": "battery thickness + 2.24 mm board stack <= 7.1 mm (Z between sensor stack and display)",
+      "participants": [
+        "main_board",
+        "battery"
+      ],
+      "severity": "hard",
+      "_v04": "REPLACED: area form made the shipped design infeasible (F1)"
+    },
+    {
+      "id": "C8_haptic_mass_vs_structure",
+      "type": "indirect",
+      "participants": [
+        "haptics",
+        "structure"
+      ],
+      "severity": "soft_penalised"
+    },
+    {
+      "id": "C9_nfc_vs_titanium_eddy",
+      "type": "direct_opposition",
+      "expression": "Ti proximity induces eddy losses at 13.56 MHz; ferrite thickness rises as clearance falls",
+      "participants": [
+        "nfc",
+        "structure"
+      ],
+      "severity": "hard"
+    },
+    {
+      "id": "C10_nfc_vs_qi_coil",
+      "type": "geometric_exclusion",
+      "expression": "NFC loop >= 2 mm from the fixed Qi coil",
+      "participants": [
+        "nfc"
+      ],
+      "severity": "hard",
+      "_note": "Qi is fixed, so NFC absorbs the entire cost of this constraint"
+    },
+    {
+      "id": "C11_nfc_vs_antenna_perimeter",
+      "type": "resource_conservation",
+      "expression": "antenna.keepout + nfc.loop_volume <= 2400",
+      "participants": [
+        "antenna",
+        "nfc"
+      ],
+      "severity": "hard"
+    },
+    {
+      "id": "C12_siren_thermal",
+      "type": "use_case_coupling",
+      "_v03_new": true,
+      "expression": "siren_emergency duty (hours continuous) adds ~0.5 W amp dissipation on top of 0.9 W SoC; T_skin must still hold 43 C",
+      "participants": [
+        "acoustics",
+        "thermal",
+        "main_board",
+        "structure"
+      ],
+      "severity": "soft_penalised",
+      "_note": "NON-GEOMETRIC COUPLING. Arises from a use case, not from adjacency. Invisible to any packing formulation.",
+      "_v04": "siren sustained ~0.6 W < nominal 0.9 W"
+    },
+    {
+      "id": "C13_siren_endurance",
+      "type": "use_case_coupling",
+      "_v03_new": true,
+      "expression": "siren runtime = battery_energy / (P_amp(SPL) + P_system). Louder siren drains the beacon faster.",
+      "participants": [
+        "acoustics",
+        "battery"
+      ],
+      "severity": "hard",
+      "_note": "THE PAPER'S BEST EXAMPLE. Giving acoustics more volume raises SPL; taking that volume from the battery shortens how long the beacon lasts. Louder for less time, or quieter for longer. An emergency beacon has a real optimum here and no packing formulation can see it."
+    },
+    {
+      "id": "C14_wall_vs_volume_mass",
+      "type": "resource_conservation",
+      "severity": "hard",
+      "expression": "thicker wall: -1500 mm^3 interior and +6.6 g per mm",
+      "participants": [
+        "structure",
+        "all R1 claimants"
+      ],
+      "_v04_new": true
+    },
+    {
+      "id": "C15_membrane_tax",
+      "type": "fixed_loss",
+      "severity": "hard",
+      "expression": "10 ATM membrane adds up to 4 dB loss on the siren path and adds series resistance to the duct",
+      "participants": [
+        "acoustics",
+        "structure"
+      ],
+      "_v04_new": true
+    }
+  ],
+  "performance_models": [
+    {
+      "id": "PM_battery_runtime",
+      "inputs": [
+        "battery.volume_mm3"
+      ],
+      "form": "E_Wh = rho_v * V; runtime_h = E_Wh / P_avg_W",
+      "constants": {
+        "rho_v_Wh_per_L": 600,
+        "P_avg_W": 0.038
+      },
+      "validation": "reproduces 590 mAh / ~60 h typical usage",
+      "cost": "closed_form"
+    },
+    {
+      "id": "PM_antenna_chu_efficiency",
+      "inputs": [
+        "clearance_volume_mm3",
+        "min_conductor_distance_mm",
+        "band.f_mhz"
+      ],
+      "form": "Q_min = 1/(ka)^3 + 1/(ka); BW_max = f0/Q; eta penalised by conductor proximity",
+      "note": "physics-grounded lower bound the arbiter cannot negotiate below",
+      "cost": "closed_form",
+      "worst_case_band": "LTE_lowband_700MHz"
+    },
+    {
+      "id": "PM_nfc_coupling",
+      "inputs": [
+        "loop_area_mm2",
+        "ferrite_thickness_mm",
+        "distance_to_titanium_mm",
+        "loop_turns"
+      ],
+      "form": "k = f(loop_area, alignment); Q_eff = Q_0 / (1 + eddy_loss(Ti, mu_r*t)); read_range from k*Q vs ISO 14443 threshold",
+      "constants": {
+        "f_mhz": 13.56,
+        "mu_r_ferrite": 120,
+        "sigma_Ti_MS_per_m": 2.38
+      },
+      "constraint": "read_range >= 10 mm",
+      "cost": "closed_form",
+      "confidence": "medium \u2014 eddy-loss term is a fitted approximation"
+    },
+    {
+      "id": "PM_haptic_force",
+      "inputs": [
+        "volume_mm3",
+        "stroke_mm"
+      ],
+      "form": "F_peak = m * (2*pi*f_r)^2 * x; m = rho_mass * V * mass_fraction",
+      "constants": {
+        "f_r_hz": 170,
+        "rho_mass_g_per_cm3": 17.0,
+        "mass_volume_fraction": 0.45
+      },
+      "cost": "closed_form"
+    },
+    {
+      "id": "PM_board_routability",
+      "inputs": [
+        "area_mm2",
+        "component_pin_count"
+      ],
+      "form": "routability index vs area-per-pin at fixed 10-layer stackup",
+      "cost": "heuristic",
+      "confidence": "low \u2014 weakest evaluator, flag as limitation"
+    },
+    {
+      "id": "PM_thermal_skin_temp",
+      "inputs": [
+        "spreader_area_mm2",
+        "soc.tdp_sustained_w",
+        "audio_amp.sustained_w",
+        "wall_thickness_mm",
+        "load_case"
+      ],
+      "form": "lumped RC: T_skin = T_amb + P_total * (R_jc + R_spread(A) + R_case)",
+      "constants": {
+        "k_graphite_inplane": 1500,
+        "k_titanium": 6.7,
+        "h_skin_W_m2K": 25
+      },
+      "load_cases": {
+        "nominal": "P = 0.9 W",
+        "siren_sustained": "P = 1.4 W for hours"
+      },
+      "constraint": "T_skin <= 43 C",
+      "cost": "lumped_network",
+      "_v03_note": "siren_sustained is now the governing case \u2014 55% more sustained power than nominal"
+    },
+    {
+      "id": "PM_structural_margin",
+      "inputs": [
+        "wall_thickness_mm",
+        "port_area_mm2",
+        "rib_volume_mm3"
+      ],
+      "form": "D = E*t^3/(12*(1-nu^2)); pressure deflection + drop impulse margin; port openings as stress raisers",
+      "constants": {
+        "E_Ti_GPa": 114,
+        "nu_Ti": 0.34,
+        "rho_Ti_g_cm3": 4.43
+      },
+      "cost": "closed_form"
+    },
+    {
+      "id": "PM_siren_endurance",
+      "form": "runtime = E_batt / (P_siren + 0.15 W)",
+      "constraint": ">= 3.0 h",
+      "cost": "closed_form"
+    },
+    {
+      "id": "PM_acoustic_circuit",
+      "file": "acoustic_circuit.py",
+      "outputs": [
+        "siren electrical power at 86 dB",
+        "small-signal Q (-3 dB bandwidth)",
+        "voice score",
+        "excursion",
+        "port particle velocity"
+      ],
+      "cost": "~0.5 ms per design"
+    }
+  ],
+  "objectives": [
+    {
+      "id": "O1",
+      "maximise": "battery_runtime_h",
+      "reference_value": 60
+    },
+    {
+      "id": "O2",
+      "maximise": "siren_spl_db_at_1m",
+      "threshold": 86
+    },
+    {
+      "id": "O3",
+      "maximise": "gnss_l5_efficiency"
+    },
+    {
+      "id": "O4",
+      "maximise": "haptic_peak_force_n"
+    },
+    {
+      "id": "O5",
+      "minimise": "skin_temp_c",
+      "hard_limit": 43.0,
+      "governing_case": "siren_sustained"
+    },
+    {
+      "id": "O6",
+      "satisfy": "10ATM_pressure_margin >= 1.5"
+    },
+    {
+      "id": "O7",
+      "satisfy": "total_mass_g <= 60.5"
+    },
+    {
+      "id": "O8",
+      "satisfy": "nfc_read_range_mm >= 10"
+    },
+    {
+      "id": "O9",
+      "satisfy": "siren_runtime_h >= 3.0",
+      "_v03_new": true
+    },
+    {
+      "id": "O10",
+      "maximise": "voice_intelligibility_score",
+      "_v03_new": true,
+      "_note": "directly opposed to O2 through the shared cavity"
+    }
+  ],
+  "baseline_feasibility": {
+    "_note": "THE BENCHMARK'S CENTRAL PROPERTY. At every claimant's target the problem is infeasible. Arbitration is not optional.",
+    "R1_volume": {
+      "pool_mm3": 11200,
+      "sum_of_targets_mm3": 12356,
+      "breakdown": {
+        "battery": 3786,
+        "main_board": 2800,
+        "acoustics": 1370,
+        "structure": 1800,
+        "antenna": 1500,
+        "haptics": 350,
+        "thermal": 250,
+        "nfc_ferrite": 180,
+        "nfc_loop_R6": 320
+      },
+      "overcommitment_mm3": 1156,
+      "overcommitment_pct": 10.3,
+      "status": "INFEASIBLE"
+    },
+    "R2_caseback_area": {
+      "pool_mm2": 1143,
+      "sum_of_targets_mm2": 1120,
+      "slack_mm2": 23,
+      "status": "FEASIBLE BUT SATURATED"
+    },
+    "R7_port_area": {
+      "acoustics_target_mm2": 11.0,
+      "structure_cap_mm2": 8.0,
+      "geometric_pool_mm2": 12.0,
+      "status": "INFEASIBLE \u2014 the star conflict"
+    },
+    "implication": "Any experimental arm returning a feasible solution has made a trade. The rationale trace must identify which claimant conceded and why.",
+    "joint_requirements": "see Arm 2 v0.4 results"
+  },
+  "arbitration": {
+    "method": "analytical_target_cascading",
+    "top_level": "system_arbiter",
+    "consistency_penalty": "augmented_lagrangian",
+    "subproblem_structure": {
+      "single_objective": [
+        "battery",
+        "antenna",
+        "nfc",
+        "haptics",
+        "main_board",
+        "thermal",
+        "structure"
+      ],
+      "nested_multi_objective": [
+        "acoustics"
+      ],
+      "_note": "STRUCTURAL EXTENSION TO ATC. Standard formulations assume each subproblem returns one local optimum for given targets. The acoustic subproblem returns a Pareto frontier, and the arbiter must select a point on it as part of the system solve."
+    },
+    "protocol": [
+      "1. arbiter cascades volume and port-area targets down",
+      "2. single-objective claimants return local optima + consistency residuals",
+      "3. acoustics sweeps internal trades and returns a NON-DOMINATED SET over (voice_score, siren_spl, siren_runtime)",
+      "4. arbiter selects a frontier point jointly with the system-level allocation",
+      "5. repeat to consistency convergence"
+    ],
+    "llm_role": [
+      "formulate: extract claims, load cases, couplings and objectives from requirement documents",
+      "explain: emit an auditable rationale trace for each allocation decision AND each frontier-point selection"
+    ],
+    "llm_role_excluded": [
+      "performing the optimisation search"
+    ]
+  },
+  "open_questions_v04": [
+    "Membrane IL at 3.2 kHz: Gore specifies 1 kHz only. Conservative and physical bounds bracket the answer.",
+    "Fixed mass remainder (15.9 g) is an estimate.",
+    "Damping index is not physically calibrated; needs a microspeaker datasheet or measurement to anchor Q."
+  ],
+  "open_questions_v07": [
+    "Siren duty cycle value (0.5 assumed)",
+    "Exact driver part / sensitivity: feasibility at 1 m needs ~typical (95 dB) sensitivity; at the 92 dB minimum no design is feasible"
+  ]
+}

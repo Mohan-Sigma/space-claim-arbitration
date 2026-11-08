@@ -1,0 +1,1109 @@
+{
+ "x": [
+  3800.0,
+  800.0,
+  1197.0,
+  1400.0,
+  1.1,
+  1400.0,
+  1200.0,
+  5.0,
+  0.5,
+  3.5,
+  20.0,
+  294.7,
+  319.0,
+  180.0,
+  110.0
+ ],
+ "f": [
+  59.99999999999999,
+  1.2541091893739624,
+  81.03119594244146,
+  0.1891470388904001
+ ],
+ "g": [
+  -0.035199999999998906,
+  -8.2,
+  -0.24,
+  -0.10999999999999943,
+  -0.04999999999999982,
+  -2.15,
+  0.03548898439620274,
+  -0.002214733542317049,
+  0.368330205193125,
+  -0.26720333738886437,
+  -0.00025842593774305644,
+  0.0,
+  -6.0,
+  -3.6,
+  -0.6721463128823136
+ ],
+ "feasible": false,
+ "confirmed": false,
+ "rounds": 12,
+ "confirmations": [],
+ "usage": {
+  "input": 166522,
+  "output": 78108,
+  "cache_write": 35190,
+  "cache_read": 246330,
+  "calls": 96
+ },
+ "est_cost_usd": 1.227,
+ "violated": [
+  "O6_pressure",
+  "siren_driver_power_1W"
+ ],
+ "transcript": [
+  {
+   "round": 1,
+   "messages": [
+    [
+     "board",
+     "Board lead: my 1250 mm\u00b2 claim (2800 mm\u00b3) carries about 50 mm\u00b2 of slack above the routability floor. I'm giving that back and moving to 1205 mm\u00b2 (2699 mm\u00b3), which frees about 101 mm\u00b3. The floor is about 1197 mm\u00b2 (2681 mm\u00b3). I'm holding a few mm\u00b2 of margin because routability falls off quickly below 0.95, and I can't go lower without risking the 10-layer routing on the W1000. The interior is still over by about 1145 mm\u00b3, so I OBJECT until the whole ledger balances. Battery, structure, acoustics and antenna will need to find most of the rest."
+    ],
+    [
+     "battery",
+     "Battery lead: I'm at 3786 mm\u00b3 and 59.78 h, so I'm already marginally short of the ~60 h target. The 4.73 mm cell plus the 2.24 mm board gives a 6.97 mm stack against the 7.1 mm limit. I can't give back much without breaking runtime, and the siren's 3 h endurance also draws on this same energy. I'm probing smaller cells to find the runtime cost per mm\u00b3. Caseback is at 1120 of 1143 mm\u00b2, so there's little room to widen the footprint. I'd rather see the interior overage closed by antenna, structure and acoustics trimming to their actual minimums. I OBJECT, since the ledger is still over by about 1145 mm\u00b3."
+    ],
+    [
+     "antenna",
+     "Antenna lead: I'm holding 1500 mm\u00b3 this round because I don't yet know how L5 efficiency (0.208 now) falls as V_ant shrinks. I'm probing 1200 and 1000 mm\u00b3 to get that slope, plus a 1.1 mm wall. Each 0.1 mm of wall returns 150 mm\u00b3 to every domain, and thinner titanium should detune the antenna less. Structure lead, please say whether 1.1 mm is feasible. I'll offer a concrete give-back next round once I have the numbers. I'm not giving up the L5 margin blindly. I OBJECT because the ledger is still over by 1145 mm\u00b3."
+    ],
+    [
+     "thermal",
+     "Thermal: I'm at 320 mm\u00b2 (250 mm\u00b3) and skin temperature is exactly 43.0 C, so I have no margin and can't give volume back at 1.2 mm wall. The spreader is also only about 22% of the 1143 mm\u00b2 caseback pool, so it isn't the main pressure there. I'm probing how a thinner wall (1.1 mm) changes skin temperature, and what spreader area would restore margin if it runs hotter. Structure lead, the 1.1 mm answer matters to me too. I OBJECT because the interior is still over by 1145 mm\u00b3."
+    ],
+    [
+     "structure",
+     "Structure: pressure margin is 1.438 at 1.2 mm wall, 1800 mm\u00b3 ribs and a 9 mm\u00b2 port, so I fail the 1.5 requirement. A 1.1 mm wall is not feasible, because it would lower the margin further. I won't give back volume yet.\n\nI'm probing three ways to close the gap:\n- More rib volume.\n- A smaller port. Acoustics, please tell me the minimum port that still gives 86 dB and good intelligibility, because a port cut costs nobody interior volume.\n- A thicker wall. This costs 150 mm\u00b3 per 0.1 mm, so I expect it to be the most expensive option.\n\nNext round I'll claim the cheapest combination. I OBJECT."
+    ],
+    [
+     "acoustics",
+     "Acoustics: my siren fails. It needs 9.08 W at the driver against a 1.0 W limit. Endurance is 0.34 h on the current battery, against a 3 h target. The resonance sits at 5.6 kHz, which looks mistuned for a siren. I can't answer the structure lead's minimum port yet. A smaller port will probably worsen the siren, so I'm not offering one. I'm dropping the mesh to its 20 rayl floor and lengthening the outlet to pull the resonance down. I'm probing the port, the outlet length and a smaller volume to find where 1 W works. I'll commit to any volume give-back once I see those results. OBJECT."
+    ],
+    [
+     "haptics",
+     "Haptics: force is 1.069 N at 350 mm\u00b3, and the requirement is 0.9 N. Force scales roughly linearly, about 0.00305 N per mm\u00b3, so the floor is about 295 mm\u00b3. I'm giving back 45 mm\u00b3 and moving to 305 mm\u00b3, which should give about 0.93 N. That leaves a few percent of margin without going to the edge. I can't go lower without failing my own requirement.\n\nThe ledger is still over by about 1100 mm\u00b3, so I OBJECT. My give-back is small, so the real closure has to come from the large pools: structure, acoustics, antenna and battery. Acoustics, please check whether the siren fix can come from tuning rather than extra volume."
+    ],
+    [
+     "nfc",
+     "NFC: read range is 18.2 mm against a 10 mm requirement, so I have real slack and will give it back. I'm cutting from 500 to 390 mm\u00b3 (loop 250, ferrite 140), which frees 110 mm\u00b3. I don't yet know how steeply range falls with volume, so I'm probing down to the bounds (180/110) to find the floor. Next round I'll claim close to whatever still gives \u226510 mm with a few mm of margin. The loop volume sits in the perimeter keepout, so cutting it also eases that pool. The interior is still over, so I OBJECT. Antenna, structure and acoustics hold the big numbers."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11200,
+    "interior_claimed_mm3": 12190,
+    "interior_over_by_mm3": 990,
+    "volume_by_domain": {
+     "battery": 3786,
+     "board": 2699,
+     "antenna": 1500,
+     "thermal": 250,
+     "structure": 1800,
+     "acoustics": 1460,
+     "haptics": 305,
+     "nfc": 390
+    },
+    "caseback_claimed_mm2": 1120,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1750,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 9.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.2
+   },
+   "claims": {
+    "V_batt": 3786.0,
+    "A_batt": 800.0,
+    "A_board": 1205.0,
+    "V_struct": 1800.0,
+    "t_wall": 1.2,
+    "V_ant": 1500.0,
+    "V_acou": 1460.0,
+    "port": 9.0,
+    "split": 0.78,
+    "h_out": 2.0,
+    "r_mesh": 20.0,
+    "V_hap": 305.0,
+    "A_spr": 320.0,
+    "V_loop": 250.0,
+    "V_ferr": 140.0
+   },
+   "notices": []
+  },
+  {
+   "round": 2,
+   "messages": [
+    [
+     "board",
+     "Board: I'm trimming from 1205 to 1199 mm\u00b2 (2686 mm\u00b3), which frees about 13 mm\u00b3. Probes put routability at 0.95 at 1197 mm\u00b2 and 0.956 at 1205 mm\u00b2, so 1199 mm\u00b2 should give about 0.952. I'm keeping 2 mm\u00b2 above the floor because the evaluator rounds. That is my last real give-back, since the floor is 1197 mm\u00b2 (2681 mm\u00b3).\n\nThe ledger is still about 990 mm\u00b3 over, and the board is only 2.7k of the 12.2k claimed. The closure has to come from structure (1800 mm\u00b3), acoustics (1460 mm\u00b3), antenna (1500 mm\u00b3) and battery. I'm probing 1197, 1198 and 1200 mm\u00b2 to confirm the floor. I OBJECT until the interior balances."
+    ],
+    [
+     "battery",
+     "Battery: I can't give volume back. Runtime is 59.78 h at 3786 mm\u00b3, already under the ~60 h target. My probes put the slope at about 0.0158 h per mm\u00b3: 3700 mm\u00b3 gives 58.42 h and 3900 mm\u00b3 gives 61.58 h. 60 h needs about 3800 mm\u00b3, so I'm claiming 3800 (+14 mm\u00b3), the minimum for the target. Every mm\u00b3 I cut costs about 0.016 h, and the siren's 3 h endurance draws on the same energy.\n\nThe stack is fine at 4.73 mm against the 7.1 mm limit, and the caseback is 1120 of 1143 mm\u00b2. I'm not asking for more footprint.\n\nThe overage is 976 mm\u00b3. It has to close in structure, acoustics and antenna. Acoustics, a siren needing 9 W is a tuning problem, and a bigger cell won't fix it. I OBJECT."
+    ],
+    [
+     "antenna",
+     "Antenna: the L5 efficiency slope is steep and roughly linear: 0.093 at 1000 mm\u00b3, 0.133 at 1200 and 0.208 at 1500. That is about 0.00025 per mm\u00b3 above 1200, so every 100 mm\u00b3 I give up costs about 12% of my L5 efficiency. A 1.1 mm wall only adds +0.009, so it isn't worth the structure risk, and I agree with the structure lead on 1.2 mm.\n\nI'm giving back 50 mm\u00b3 now, moving to 1450. I'm probing 1400 and 1300 to find where L5 becomes unacceptable. I'm also probing 1.3 mm wall at 1500, since structure may need a thicker wall and I want its detuning cost. The perimeter keepout is fine at 1750 of 2400 mm\u00b3 claimed. The interior is still about 990 mm\u00b3 over, so I OBJECT."
+    ],
+    [
+     "thermal",
+     "Thermal: skin temperature is 43.0 C at 320 mm\u00b2 and 1.2 mm wall, so I have no margin. My probes show a slope of about 0.0105 C per mm\u00b2 (340 mm\u00b2 gives 42.79 C). A 1.1 mm wall changes almost nothing (-0.01 C). Structure, that means a thicker wall costs me only about +0.01 C. I'm adding 5 mm\u00b2 (+4 mm\u00b3) so rounding or a 1.3 mm wall doesn't push me over 43 C. That is my only real margin, and I can't give volume back.\n\nThe caseback is fine at about 1125 of 1143 mm\u00b2. The roughly 990 mm\u00b3 overage has to close in structure, acoustics and antenna. I OBJECT until the interior balances."
+    ],
+    [
+     "structure",
+     "Structure: my probes give these margins.\n- Wall +0.1 mm adds about 0.197, at a cost of 150 mm\u00b3 to everyone.\n- Port 9\u21927 mm\u00b2 adds about 0.124 and costs no volume.\n- Ribs +300 mm\u00b3 add only about 0.025.\n\nRibs are the weakest margin per mm\u00b3, so I'm cutting them to the 1400 floor. That frees 400 mm\u00b3 and costs about 0.033 margin. I'll recover that with a wall of about 1.25 mm, which costs 75 mm\u00b3 and adds about 0.1. Net, the interior gains about 325 mm\u00b3 and the margin lands near 1.50, so it's thin.\n\nAcoustics, I'm not asking you for a smaller port yet. If 8 mm\u00b2 fixes the siren tuning, I'd take it, since it gives me 0.06 of margin for free.\n\nI'm prob"
+    ],
+    [
+     "acoustics",
+     "Acoustics: my siren still fails, at 7.67 W against the 1.0 W limit. The last probes show the trend. Port 9\u21927 mm\u00b2 cut power from 7.67 to 6.3 W and moved resonance from 5275 to 4803 Hz. Longer outlet and lower mesh resistance also help. A smaller volume barely changes power, but SII drops, from 88.4 to 85.3 at 1200 mm\u00b3. So the fix is tuning, not volume.\n\nStructure, I'm taking 7 mm\u00b2 now, which gives you about 0.12 of margin for free. I'm probing 3-5 mm\u00b2 with a 3.5 mm outlet to find where the resonance lands. I'll hold 1460 mm\u00b3 until I know where 1 W is reached. After that I'll give back volume with the SII cost known."
+    ],
+    [
+     "haptics",
+     "Haptics: I'm trimming from 305 to 300 mm\u00b3, which frees 5 mm\u00b3. My probes gave 0.901 N at 295 and 0.916 N at 300, so 300 keeps about 1.8% margin over 0.9 N. I'm not going to 295, because 0.901 N is inside evaluator rounding. This is my real floor, since force is linear in volume.\n\nThe interior is still about 940 mm\u00b3 over, and haptics is only 300 of the 12.1k claimed. The closure has to come from the large pools.\n- **Structure:** ribs from 1800 toward 1400 would free about 400 mm\u00b3.\n- **Acoustics:** 1460 mm\u00b3 is held until the siren tuning lands, and that is the biggest open item.\n- **Antenna:** 1450 mm\u00b3 is still being traded against L5 efficiency.\n\nI OBJECT until the interior balances."
+    ],
+    [
+     "nfc",
+     "NFC: my probes show range stays well above 10 mm all the way down to the bounds. At 180/110 it is 12.7 mm, which is 27% margin. I can't cut further, because those are the minimum bounds. I'm claiming loop 180 and ferrite 110, which frees 100 mm\u00b3 from interior and 70 mm\u00b3 from the perimeter keepout.\n\nThe ledger still has about 840 mm\u00b3 to close. That has to come from structure ribs (about 400 mm\u00b3 on offer), antenna and acoustics. If the ledger gets tight, I can tell you what 12.7 mm at the floor is worth. I'm probing 180/130 and 200/110 to price the next mm\u00b3 if anyone needs me to take volume back. OBJECT until the interior balances."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11200,
+    "interior_claimed_mm3": 12039,
+    "interior_over_by_mm3": 839,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2686,
+     "antenna": 1450,
+     "thermal": 254,
+     "structure": 1800,
+     "acoustics": 1460,
+     "haptics": 300,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1125,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1630,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 7.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.2
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1199.0,
+    "V_struct": 1800.0,
+    "t_wall": 1.2,
+    "V_ant": 1450.0,
+    "V_acou": 1460.0,
+    "port": 7.0,
+    "split": 0.78,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 300.0,
+    "A_spr": 325.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 3,
+   "messages": [
+    [
+     "board",
+     "Board: I'm moving from 1199 to 1198 mm\u00b2 (2683 mm\u00b3). Routability is 0.951 there, and 0.95 at 1197 is the hard floor, so I'm keeping 1 mm\u00b2 above it for evaluator rounding. This is a real give-back, but only about 2 mm\u00b3, so it doesn't close the gap.\n\nThe interior is still 839 mm\u00b3 over, and the board is already near its minimum. The closure has to come from the large pools:\n- **Structure:** ribs from 1800 to 1400 would free about 400 mm\u00b3.\n- **Acoustics:** 1460 mm\u00b3 should drop once the siren tuning lands and the SII cost is known.\n- **Antenna:** 1450 mm\u00b3 is still being traded against L5 efficiency.\n\nI'm probing 1196 and 1197.5 mm\u00b2 to check how sharp the routability cliff is below the floor. I OBJECT until the interior balances."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding at 3800 mm\u00b3 and 800 mm\u00b2. That gives 60.0 h, exactly on target, and the stack is 4.75 + 2.24 = 6.99 mm against the 7.1 mm limit. Runtime depends only on volume (about 0.0158 h/mm\u00b3), so changing footprint frees nothing from the interior pool. Each 10 mm\u00b3 I give up costs about 0.16 h, and the siren's 3 h endurance draws on the same energy.\n\nThe overage is 837 mm\u00b3. The closure has to come from structure ribs (about 400 mm\u00b3 on offer), acoustics (1460 mm\u00b3) and antenna. Acoustics, the siren is a port and tuning problem, so please don't ask for battery volume. I'm probing 3790 and 3780 to price a small give-back if the ledger ends up within about 20 mm\u00b3 of balance. I OBJECT until the interior balances."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm giving back another 50 mm\u00b3, from 1450 to 1400. L5 efficiency drops from 0.194 to 0.181, about 7% relative, and the probe confirms the roughly linear slope of 0.00025 per mm\u00b3. At 1300 it is 0.156 (-20%), so I won't go below 1400 without a stated L5 threshold. Nobody has given me one.\n\nStructure, a wall of 1.25 mm costs me about 0.0045 at 1500 mm\u00b3 (a 1.3 mm wall costs 0.009), which I can accept. Your ribs cut to 1400 is the right first move.\n\nAcoustics, 1460 mm\u00b3 is the largest remaining claim. Please say what you can give back once the port tuning is known.\n\nThe interior is still over by about 790 mm\u00b3 after my cut, so I OBJECT. I'm probing 1350 and 1250 mm\u00b3 to see whether the slope holds."
+    ],
+    [
+     "thermal",
+     "Thermal: I'm holding 325 mm\u00b2 (254 mm\u00b3). Skin temperature is 42.94 C against the 43.0 C limit. Probes put 310 mm\u00b2 at 43.12 C (fail) and 330 mm\u00b2 at 42.89 C. The slope is about 0.0105 C per mm\u00b2, so every 1 mm\u00b2 I cut costs about 0.01 C. A 1.3 mm wall adds only 0.02 C at 325 mm\u00b2, so structure's 1.25 mm wall is safe for me (about 42.95 C). I can't go below about 322 mm\u00b2 without losing the rounding margin, and that frees only 2 mm\u00b3.\n\nThe interior is still 787 mm\u00b3 over, and thermal is only 254 mm\u00b3 of it. The closure has to come from structure (ribs 1800 to 1400), acoustics (1460 mm\u00b3) and antenna. I OBJECT until the interior balances."
+    ],
+    [
+     "structure",
+     "Structure: I'm cutting ribs from 1800 to the 1400 floor, which frees 400 mm\u00b3. I'm keeping the wall at 1.2 mm.\n\nBy my estimate the margin at 1400 ribs, 1.2 mm wall and 7 mm\u00b2 port is about 1.53 against the 1.5 limit. That is thin, but it passes, and it needs no wall increase. A thicker wall would cost everyone 75 mm\u00b3 or more, so I'm dropping the 1.25 mm idea.\n\nThe ledger is still about 387 mm\u00b3 over. Acoustics (1460 mm\u00b3) now has to give most of that back. Battery, antenna and board have already given what they can.\n\nIf acoustics lands on a port of 4-5 mm\u00b2, I can trade it for a 1.1 mm wall, which frees another 150 mm\u00b3 for everyone. I'm probing that now. I OBJECT until the interior balances."
+    ],
+    [
+     "acoustics",
+     "Acoustics: I'm giving back 260 mm\u00b3, from 1460 to 1200. The 1200 probe at port 4 and split 0.7 gave the lowest siren power so far, 4.0 W, so smaller volume doesn't hurt the siren. The cost is SII, which falls to 85.1 from 88.4. Nobody has stated an SII floor, so please tell me if 85 is a problem.\n\nI'm taking the port to 4 mm\u00b2, which gives structure about 0.19 of margin and may justify its 1.1 mm wall. That would return 150 mm\u00b3 to everyone. The siren still fails at 4 W against the 1.0 W limit, so I OBJECT. I'm probing split, which I haven't varied yet, and a smaller volume."
+    ],
+    [
+     "haptics",
+     "Haptics: force is linear at about 0.0032 N per mm\u00b3, so 298 mm\u00b3 gives 0.910 N, 1.1% over the 0.9 N limit. I'm going from 300 to 298 and giving back 2 mm\u00b3. I won't go lower because 296 mm\u00b3 gives 0.904 N, which is inside evaluator rounding.\n\nAfter acoustics' 260 mm\u00b3 give-back and the board's 1 mm\u00b2, the interior is about 125 mm\u00b3 over. Haptics can't close that.\n\nThe closure has to come from a structure wall of 1.1 mm (150 mm\u00b3 freed) and from acoustics' siren tuning. Nothing in my domain depends on port, wall or battery. A 1.1 mm wall costs haptics nothing. I OBJECT until the interior balances."
+    ],
+    [
+     "nfc",
+     "NFC: I'm at both minimum bounds, loop 180 and ferrite 110 mm\u00b3, so I have nothing left to give. Read range is 12.7 mm against the 10 mm requirement, which is 27% margin. Going to the bounds saved 100 mm\u00b3 of interior and 70 mm\u00b3 of keepout. Taking back volume would only raise range (200/110 gives 13.4 mm), and nobody needs that.\n\nAfter acoustics' 260 mm\u00b3 cut, I estimate the interior is still about 125 mm\u00b3 over. Structure's 1.1 mm wall (150 mm\u00b3 freed) would close it. I can't probe the wall, but NFC range shouldn't depend on it, and I can live with that.\n\nI OBJECT only because the interior doesn't balance and the siren still fails. My own requirement is met."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11200,
+    "interior_claimed_mm3": 11585,
+    "interior_over_by_mm3": 385,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2684,
+     "antenna": 1400,
+     "thermal": 254,
+     "structure": 1400,
+     "acoustics": 1460,
+     "haptics": 298,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1125,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 7.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.2
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1198.0,
+    "V_struct": 1400.0,
+    "t_wall": 1.2,
+    "V_ant": 1400.0,
+    "V_acou": 1460.0,
+    "port": 7.0,
+    "split": 0.78,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 298.0,
+    "A_spr": 325.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 4,
+   "messages": [
+    [
+     "board",
+     "Board: I'm holding at 1198 mm\u00b2 (2683 mm\u00b3), routability 0.951. My probes show 1197.5 gives 0.950 and passes, 1196 gives 0.949 and fails, and 1190 gives 0.944. The cliff is shallow, about 0.0008 per mm\u00b2. Dropping to 1197.5 would free only about 1 mm\u00b3, and I want the 0.5 mm\u00b2 margin against evaluator rounding. I can't close the gap. Routability doesn't depend on wall, port or battery, so structure's 1.1 mm wall (150 mm\u00b3 freed) costs me nothing.\n\nThe ledger shows the interior 385 mm\u00b3 over, with acoustics still at 1460. Acoustics' proposed cut to 1200 would leave it about 125 mm\u00b3 over, and a 1.1 mm wall would close that. The siren also still fails. I OBJECT until the interior balances."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding at 3800 mm\u00b3 and 800 mm\u00b2, which gives 60.0 h with the stack at 6.99 mm. A give-back costs about 0.16 h per 10 mm\u00b3, and the siren's 3 h endurance draws on the same energy.\n\nThe numbers close without more battery volume. The ledger still shows acoustics at 1460. If acoustics lands at 1200 and structure moves to a 1.1 mm wall, the claims fall to about 11,324 mm\u00b3 against a pool of about 11,350 mm\u00b3. That leaves roughly 26 mm\u00b3 spare. If the final gap is under about 20 mm\u00b3 I can give 10 to 20 mm\u00b3, which costs 0.16 to 0.32 h. I won't cut for a larger gap.\n\nStructure, please confirm that the 1.1 mm wall passes at 4 mm\u00b2. Acoustics, the 4 W siren is your open item, not a battery-volume question. I OBJECT until the interior balances."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding at 1400 mm\u00b3 (L5 0.181). The slope is a steady 0.00024 per mm\u00b3, so the cuts so far are costing real L5.\n\nThe closure path is clear. Acoustics at 1200 leaves the interior about 125 mm\u00b3 over, and structure's 1.1 mm wall frees 150 mm\u00b3. A thinner wall also helps me: 1.25 mm cost 0.004, so 1.1 mm should return about +0.004 of L5. If the gap is then under about 25 mm\u00b3, I can give 15-20 mm\u00b3 and still sit near 0.18. I'm probing that now.\n\nWithout a 1.1 mm wall I won't go below 1400. Acoustics, please hold the 1200 mm\u00b3 claim and fix the siren with the port and split. Structure, please confirm the wall. I OBJECT because the interior is still over."
+    ],
+    [
+     "thermal",
+     "Thermal: I'm holding at 325 mm\u00b2 (254 mm\u00b3), skin temperature 42.94 C against the 43.0 C limit. I can live with structure's 1.1 mm wall. Thickening the wall raises my temperature (1.25 mm added about 0.01 C), so thinning it should lower it slightly. I'm probing 1.1 mm at 325, 320 and 318 mm\u00b2 to confirm. If it holds, I can cut 5-7 mm\u00b2 and return about 4-5 mm\u00b3. That is small, so the closure still depends on acoustics at 1200 mm\u00b3 and the 1.1 mm wall. Structure, please confirm the wall passes at a 4 mm\u00b2 port. I OBJECT because the interior is still over."
+    ],
+    [
+     "structure",
+     "Structure: the 1.1 mm wall passes only with a small port. My probes at 1.1 mm and 1400 mm\u00b3 ribs gave margin 1.527 (pass) at a 4 mm\u00b2 port and 1.465 (fail) at 5 mm\u00b2. The ledger still shows the port at 7 mm\u00b2, where 1.1 mm fails. I'm moving to 1.1 mm now, which frees 150 mm\u00b3 for everyone, on one condition: acoustics must lock the port at \u22644.0 mm\u00b2. Acoustics, please confirm 4.0 or lower, because 4.5 is untested. I'm probing 4.5 mm\u00b2 and a 1.0 mm wall at 3 mm\u00b2. I OBJECT until the port shows 4 in the ledger and the interior balances."
+    ],
+    [
+     "acoustics",
+     "Acoustics: I'm locking the port at 4.0 mm\u00b2 for structure's 1.1 mm wall, and moving to 1200 mm\u00b3. With wall 1.1, that puts the claims at about 11,325 mm\u00b3 against the 11,350 mm\u00b3 pool, roughly 25 mm\u00b3 spare. Battery and antenna can take that as they see fit.\n\nMy open item is the siren, which still fails. At 1200 mm\u00b3, port 4 and split 0.7 it needs 4.0 W against the 1.0 W limit. I'm not asking for battery volume, because the siren is a tuning problem. I haven't yet varied h_out, which is currently at its 3.5 maximum, or split away from 0.7. SII is about 85, and I still need someone to state a floor. I OBJECT until the siren passes."
+    ],
+    [
+     "haptics",
+     "Haptics: my requirement is met. At 298 mm\u00b3 force is 0.910 N against the 0.9 N limit. My probes show 295 mm\u00b3 gives 0.901 N and 296 gives 0.904 N, so I'm moving to 296 mm\u00b3 (0.904 N) and returning 2 mm\u00b3. I'm keeping about 0.4% margin for evaluator rounding and won't go lower.\n\nHaptics doesn't depend on wall, port or battery, so structure's 1.1 mm wall at a 4 mm\u00b2 port costs me nothing. The interior now balances with about 25 mm\u00b3 spare, which battery and antenna can split.\n\nI'm objecting only because the ledger still has the siren failing at 4 W against the 1.0 W limit. That is a program goal, not a volume problem. Acoustics, please vary h_out and split next."
+    ],
+    [
+     "nfc",
+     "NFC: I'm holding at the bounds, loop 180 mm\u00b3 and ferrite 110 mm\u00b3. Read range is 12.7 mm against the 10 mm requirement, and I have nothing left to give back. Neither wall nor port affects NFC, so the 1.1 mm wall at a 4 mm\u00b2 port costs me nothing.\n\nThe interior now balances at 11,323 mm\u00b3 against 11,350 mm\u00b3, with about 27 mm\u00b3 spare. The perimeter keepout (1,580 of 2,400 mm\u00b3) and the caseback plane (1,125 of 1,143 mm\u00b2) are both within their pools.\n\nThe open item is the siren, which fails at 4 W against the 1.0 W limit. That is a program goal I can't accept as failing. Acoustics, please vary h_out and split. If the siren turns out to need a little volume, the ~27 mm\u00b3 spare should go to you before it goes to anyone else's margin. I OBJECT only until the siren passes."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11323,
+    "interior_over_by_mm3": -27,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2684,
+     "antenna": 1400,
+     "thermal": 254,
+     "structure": 1400,
+     "acoustics": 1200,
+     "haptics": 296,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1125,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 4.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1198.0,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1200.0,
+    "port": 4.0,
+    "split": 0.7,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 296.0,
+    "A_spr": 325.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 5,
+   "messages": [
+    [
+     "board",
+     "Board: my requirement is met. At 1198 mm\u00b2, routability is 0.951. Last round's probes at 1197.5 and 1197.0 both passed at 0.950, and 1196 failed. I'm moving to 1197.5 mm\u00b2 (about 2682 mm\u00b3), which returns about 1 mm\u00b3. That is small, but it keeps 0.5 mm\u00b2 above the lowest tested pass. I won't go lower, because the cliff is steep below 1197.\n\nWall, port and battery don't affect routability, so the 1.1 mm wall at a 4 mm\u00b2 port costs me nothing. The interior balances with about 28 mm\u00b3 spare. Acoustics should have that spare first if the siren needs it. I OBJECT only because the siren still fails."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding at 3800 mm\u00b3 and 800 mm\u00b2. That gives 60.0 h, a 4.75 mm cell and a passing z-stack. The ledger shows 28 mm\u00b3 spare, and I won't return any of it because each 10 mm\u00b3 costs about 0.16 h.\n\nThe siren is acoustics' open item. Siren endurance draws on my cell energy, but 4 W against a 1.0 W limit is a 4x gap, and no battery volume closes that. Acoustics, please vary h_out and split.\n\nIf you find the 3 h endurance needs a little energy, tell me. I can take up to the 28 mm\u00b3 spare, and I'm probing 3820 and 3828 mm\u00b3 to see how much runtime that adds. The caseback plane has 18 mm\u00b2 spare if footprint matters.\n\nI OBJECT only because the siren still fails."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding at 1400 mm\u00b3, where L5 is 0.189 at the 1.1 mm wall. That is up from 0.181 at the thicker wall, so the thinner wall helped. The slope is about 0.00025 per mm\u00b3: 1380 gave 0.184, so each 20 mm\u00b3 I return costs about 0.005.\n\nThe interior is 28 mm\u00b3 under the pool. I'm not taking any of it, and I'm not returning any either. Acoustics should get the spare first if the siren needs volume. Acoustics, please vary h_out and split now. The 4 W siren against the 1.0 W limit is a tuning gap, not a volume gap. If no one claims the spare by the next round, I'll take part of it back for L5.\n\nI'm probing 1420 and 1428 mm\u00b3, plus 1390 as a give-back option.\n\nI OBJECT only because the siren still fails."
+    ],
+    [
+     "thermal",
+     "Thermal: I'm moving to 322 mm\u00b2 (about 251 mm\u00b3), which returns roughly 2.3 mm\u00b3. My probes at the 1.1 mm wall gave 42.93 C at 325, 42.99 C at 320 and 43.01 C (fail) at 318. That is about 0.012 C per mm\u00b2, so 322 should land near 42.97 C, leaving about 0.03 C margin. I won't go to 320, because 0.01 C is too close to evaluator rounding. The 1.1 mm wall and 4 mm\u00b2 port both work for me.\n\nThe interior has about 28 mm\u00b3 spare. Acoustics gets first call on it if the siren needs volume. The siren is a tuning problem (h_out and split), not mine. I'm probing 321, 322 and 323 mm\u00b2."
+    ],
+    [
+     "structure",
+     "Structure: my requirement is met. At a 1.1 mm wall, 1400 mm\u00b3 ribs and a 4.0 mm\u00b2 port, the pressure margin is 1.527 (pass). The margin drops about 0.06 per mm\u00b2 of port, so a 4.2 mm\u00b2 port should still pass at about 1.515, but I'm holding 4.0 as the locked ceiling. The wall can't go lower: 1.0 mm failed at 1.408 even with a 3 mm\u00b2 port.\n\nAcoustics, if the siren needs a bigger port to reach 1 W, tell me the size. I'm probing 1.15 mm at a 5 mm\u00b2 port. That would cost everyone 75 mm\u00b3, which the 30 mm\u00b3 spare doesn't cover, so it's only a fallback. I'm also probing 1.05 mm at a 4 mm\u00b2 port as a possible give-back. The siren still fails, so I OBJECT."
+    ],
+    [
+     "acoustics",
+     ""
+    ],
+    [
+     "haptics",
+     "Haptics: my requirement is met. At 296 mm\u00b3 the force is 0.904 N against the 0.9 N limit. 295 mm\u00b3 gives 0.901 N, and 294 fails at 0.898 N. I'm holding 296 for evaluator-rounding margin and won't go lower.\n\nThe interior is 30 mm\u00b3 under the pool. Wall and port don't affect haptics. If the siren needs volume, acoustics should take that spare first, because the program cannot accept a failing siren. Acoustics, please vary h_out and split, and tell us whether the 4 W gap is a tuning problem or needs volume. I OBJECT only because the siren still fails."
+    ],
+    [
+     "nfc",
+     "NFC: I'm at both lower bounds (loop 180 mm\u00b3, ferrite 110 mm\u00b3), so I have nothing more to return. Read range is 12.7 mm against the 10 mm requirement, and the extra margin can't be converted to volume because the bounds stop me. Wall and port don't affect NFC, so the 1.1 mm wall and 4 mm\u00b2 port are fine for me.\n\nThe interior is 30 mm\u00b3 under the pool, the perimeter is at 1,580 of 2,400 mm\u00b3 and the caseback is at 1,122 of 1,143 mm\u00b2. All pools balance.\n\nAcoustics, you haven't spoken this round, and the siren is the only open item. Please vary h_out and split, and state the SII floor you need. If the siren needs volume, take the spare, which I support. I stay at OBJECT only because the siren fails."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11320,
+    "interior_over_by_mm3": -30,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2682,
+     "antenna": 1400,
+     "thermal": 251,
+     "structure": 1400,
+     "acoustics": 1200,
+     "haptics": 296,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1122,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 4.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1197.5,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1200.0,
+    "port": 4.0,
+    "split": 0.7,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 296.0,
+    "A_spr": 322.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 6,
+   "messages": [
+    [
+     "board",
+     "Board: my requirement is met at 1197.5 mm\u00b2 (about 2682 mm\u00b3), where routability is 0.950 and ok. 1197.0 also passed, but 1196.5 failed. I'm holding 1197.5 so I stay 0.5 mm\u00b2 above the cliff, and I won't go lower.\n\nWall, port and battery don't change routability, so the 1.1 mm wall and 4 mm\u00b2 port are fine for me. The interior has 28 to 30 mm\u00b3 spare, and acoustics should have first call on it. I can't make a trade to fix the siren, because my area is pinned by the cliff.\n\nAcoustics, you've been silent for a round. Please post your claims and probes, h_out and split included, and tell us whether the siren gap is tuning or volume. I OBJECT only because the siren still fails."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding at 3800 mm\u00b3 and 800 mm\u00b2. That gives 60.0 h and a 4.75 mm cell, and the z-stack passes. 3820 mm\u00b3 gave 60.32 h, so about 0.016 h per mm\u00b3. Going below 3800 would fall under 60 h, so I'm returning nothing.\n\nAcoustics, please post your claims and probes. I can't tell yet whether the siren gap is tuning or volume. If the 3 h endurance needs more cell energy, say how much. Up to 28 mm\u00b3 of spare interior can come to me, and the caseback plane has about 18 mm\u00b2 spare if footprint matters. Since the siren is 4 W against a 1.0 W limit, I think the fix is siren power and h_out/split tuning, not a bigger cell.\n\nI OBJECT only because the siren still fails."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding 1400 mm\u00b3, where L5 is 0.189 at the 1.1 mm wall. Last round's probes gave 0.195 at 1420 and 0.197 at 1428, about 0.0003 per mm\u00b3. 1390 gave 0.186.\n\nI'm not taking any of the 30 mm\u00b3 spare. Acoustics has silently left the siren failing for two rounds, so it gets first call. I'll only take spare if acoustics confirms it needs none.\n\nAcoustics, please post your claims, h_out and split. Tell us the port size and volume you need. The wall probes show a 1.05 mm wall would help L5 further, but structure says 1.0 mm fails. I stay at OBJECT until the siren passes."
+    ],
+    [
+     "thermal",
+     "Thermal: my requirement is met. At 322 mm\u00b2 (about 251 mm\u00b3) and the 1.1 mm wall, skin temperature is 42.96 \u00b0C. The probes read 42.98 \u00b0C at 321 mm\u00b2 and 42.95 \u00b0C at 323 mm\u00b2, so the slope is about 0.015 \u00b0C per mm\u00b2. I'm holding 322 mm\u00b2 because the 0.04 \u00b0C margin is already thin.\n\nI'm not taking any of the ~30 mm\u00b3 spare. Acoustics has first call on it. If structure's 1.15 mm wall fallback is needed for a bigger siren port, I've probed what it does to my temperature. Acoustics, please post h_out, split and the port size you need. I stay at OBJECT only because the siren fails."
+    ],
+    [
+     "structure",
+     "Structure: my requirement is met at a 1.1 mm wall, 1400 mm\u00b3 of ribs and a 4.0 mm\u00b2 port, with a pressure margin of 1.527.\n\nAcoustics, if the siren needs a bigger port, here is what I can give you:\n- **1.1 mm wall:** the margin falls about 0.06 per mm\u00b2 of port. The port can reach about 4.4 mm\u00b2 and still hold 1.5.\n- **Wall sensitivity:** the margin rises about 0.09 per +0.05 mm of wall. A 1.12 mm wall costs 30 mm\u00b3 and allows a port of about 5 mm\u00b2. A 1.11 mm wall costs 15 mm\u00b3 and allows about 4.6 mm\u00b2.\n\nPlease post your port size, h_out and split, so I can confirm the cheapest wall. I'm probing those three options.\n\nI OBJECT only because the siren still fails."
+    ],
+    [
+     "acoustics",
+     "Acoustics: sorry for the silence. The siren is my open item, and I'm at 4.0 W against the 1.0 W limit. Resonance is 4056 Hz with Q 5.62. I don't yet know whether the siren is tuned off-target or short on volume, so these probes separate the two:\n\n- **A:** a smaller port lowers resonance (port area is the lever, since h_out is already at its 3.5 maximum).\n- **B:** a shorter h_out.\n- **C:** more volume (+28 mm\u00b3 from the spare) with a lower split.\n\nI won't claim the spare until the numbers show it helps. I'm not asking for a bigger port or wall yet. Structure, hold the 1.1 mm wall for now. I OBJECT until the siren passes."
+    ],
+    [
+     "haptics",
+     "Haptics: my requirement is met. At 296 mm\u00b3 the force is 0.904 N, and last round's probes gave 0.901 at 295, 0.903 at 295.5 and 0.907 at 297. I'm holding 296 for rounding margin and won't go lower.\n\nI'm not taking any of the ~28 mm\u00b3 spare. Acoustics gets first call on it once your probes show whether the gap is tuning or volume. Wall and port don't affect haptics, so a wall up to 1.12 mm or a bigger port is something I can live with if the siren needs it. If the spare ends up unused, I'll accept that. I stay at OBJECT only because the siren still fails."
+    ],
+    [
+     "nfc",
+     "NFC: my requirement is met. Read range is 12.7 mm against the 10 mm requirement, with loop at 180 mm\u00b3 and ferrite at 110 mm\u00b3, both at their lower bounds, so I have nothing more to return. Wall, port and battery don't affect me, so a wall up to 1.12 mm or a port up to about 5 mm\u00b2 is fine.\n\nThe spare interior (about 28 mm\u00b3) goes to acoustics first. My volume is already inside the 1,580 mm\u00b3 perimeter total, so there is plenty of keepout headroom.\n\nAcoustics, once your probes show whether the siren gap is tuning or volume, post the port size and volume you need. I stay at OBJECT only because the siren still fails."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11320,
+    "interior_over_by_mm3": -30,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2682,
+     "antenna": 1400,
+     "thermal": 251,
+     "structure": 1400,
+     "acoustics": 1200,
+     "haptics": 296,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1122,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 4.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1197.5,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1200.0,
+    "port": 4.0,
+    "split": 0.7,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 296.0,
+    "A_spr": 322.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 7,
+   "messages": [
+    [
+     "board",
+     "Board: I'm holding 1197.5 mm\u00b2 (about 2682 mm\u00b3), where routability is 0.95 and ok. 1197.0 and 1197.25 also passed, and 1196.5 failed. Giving up 0.5 mm\u00b2 is only about 1 mm\u00b3, so it doesn't help the siren, and I'm keeping the margin over the cliff.\n\nWall, port and battery don't affect my routability. A wall up to 1.12 mm or a port up to about 5 mm\u00b2 is fine for me.\n\nAcoustics, the 28 to 30 mm\u00b3 of spare interior is yours. Please post your probe results, with the port size, h_out and split you need. I OBJECT only because the siren still fails."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding 3800 mm\u00b3 and 800 mm\u00b2. That gives 60.0 h with a 4.75 mm cell, and z-stack passes. Runtime follows volume at about 0.016 h per mm\u00b3 and does not depend on area. Area only sets thickness. Because the 3800 figure sits right at 60.0 h, I'm not giving any volume back.\n\nAcoustics, please tell us the siren energy you need. The spare 28 mm\u00b3 would add only about 0.45 h of runtime, so I expect a siren fix to come from port, h_out and split rather than cell size. If your probes show the siren needs cell energy, I can take up to 28 mm\u00b3 and have 21 mm\u00b2 of spare caseback area. Until then I OBJECT only because the siren still fails."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding 1400 mm\u00b3, where L5 is 0.189 at the 1.1 mm wall. My requirement is met, and I'm taking none of the ~30 mm\u00b3 spare. Acoustics gets first call on it.\n\nIf the siren needs a bigger port, I can live with a wall of 1.11 or 1.12 mm. Last round's probes showed that 1.15 mm costs about 0.004 of L5, so 1.12 should cost about 0.0016. I'm probing 1.11 and 1.12 so structure and acoustics can see the real cost, plus a 1380 mm\u00b3 case at 1.1 mm.\n\nAcoustics, please post the port size, h_out and split you need. I stay at OBJECT only because the siren still fails."
+    ],
+    [
+     "thermal",
+     "Thermal: my requirement is met at 322 mm\u00b2 (about 251 mm\u00b3), with skin temperature at 42.96 \u00b0C against the 43 \u00b0C limit. The wall barely matters to me. Last round, 1.15 mm gave 42.97 \u00b0C and 1.05 mm gave 42.96 \u00b0C. So I can live with a wall up to 1.12 mm if acoustics needs a bigger port.\n\nI'm holding 322. At 321 mm\u00b2 the temperature is 42.98 \u00b0C, so going lower would save under 1 mm\u00b3 and leave almost no margin. I'm taking none of the spare interior.\n\nAcoustics, please post the port size, h_out and split you need. I'm probing wall 1.11 and 1.12 mm to confirm the cost. I stay at OBJECT only because the siren still fails."
+    ],
+    [
+     "structure",
+     "Structure: I'm holding a 1.1 mm wall, 1400 mm\u00b3 of ribs and a 4.0 mm\u00b2 port, with a pressure margin of 1.527.\n\nAcoustics, here is what I can give you:\n- **Port at a 1.1 mm wall:** up to about 4.4 mm\u00b2 holds 1.502.\n- **Wall:** 1.11 mm allows about 4.6 mm\u00b2 (1.508) and costs 15 mm\u00b3. 1.12 mm allows 5.0 mm\u00b2 (1.502) and costs 30 mm\u00b3.\n- **Ribs:** I'm probing whether extra rib volume buys port area more cheaply than wall does.\n\nPlease post your port size, h_out and split. Then I'll pick the cheapest option that holds 1.5. I won't change the wall until you show the siren needs it.\n\nI OBJECT only because the siren still fails."
+    ],
+    [
+     "acoustics",
+     "Acoustics: the siren is 4.0 W against the 1.0 W limit, so it needs about 6 dB. I don't know yet whether that is off-tuning or missing volume. I'm still at 4056 Hz with h_out at its 3.5 maximum, so port area, volume and split are my only levers. This round's probes test them one at a time:\n\n- **A:** port 3.0, which moves resonance down.\n- **B:** port 5.0, which moves resonance up. It tells me the direction and shows what the 1.12 mm wall would buy.\n- **C:** volume 1228 (the spare) with split 0.5 and port 4.0.\n\nI'm claiming no spare yet and I'm holding the 1.1 mm wall. Battery, I'll tell you the cell energy I need once these results are in. I OBJECT because the siren fails."
+    ],
+    [
+     "haptics",
+     "Haptics: my requirement is met, with force at 0.904 N at 296 mm\u00b3. Last round's probes read 0.901 N at 295 and 0.903 N at 295.5, so I'm giving back 0.5 mm\u00b3 and claiming 295.5. I'm probing 294.5, 294.8 and 295 to see where the cliff is. Going lower is too risky without that data. Wall changes up to 1.12 mm and port changes up to about 5 mm\u00b2 don't affect me. I'm taking none of the spare interior, so acoustics has first call on it. Acoustics, post your probe results and the port, volume and split you need. I OBJECT only because the siren still fails."
+    ],
+    [
+     "nfc",
+     "NFC: my requirement is met at 12.7 mm against the 10 mm requirement. Loop (180 mm\u00b3) and ferrite (110 mm\u00b3) are both at their lower bounds, so I have no volume to return. Wall changes up to 1.12 mm and port changes up to about 5 mm\u00b2 don't affect me. The 1,580 mm\u00b3 perimeter total sits well under the 2,400 mm\u00b3 keepout, so that pool isn't a constraint.\n\nAcoustics, the roughly 31 mm\u00b3 of spare interior is yours. Please post your probe results with the port, volume and split you need. Once the spare is allocated I'll recheck the ledger. I stay at OBJECT only because the siren still fails."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11319,
+    "interior_over_by_mm3": -31,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2682,
+     "antenna": 1400,
+     "thermal": 251,
+     "structure": 1400,
+     "acoustics": 1200,
+     "haptics": 296,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1122,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 4.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1197.5,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1200.0,
+    "port": 4.0,
+    "split": 0.7,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 295.5,
+    "A_spr": 322.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 8,
+   "messages": [
+    [
+     "board",
+     "Board: my requirement still holds. 1197.0 passed earlier, and 1196.9 and 1196.75 failed, so the cliff sits between 1196.9 and 1197.0. I'm trimming to 1197.25 mm\u00b2 (about 2681.4 mm\u00b3), which gives back roughly 0.6 mm\u00b3 and leaves a small margin above the cliff. Going to 1197.0 would save only another 0.6 mm\u00b3 for almost no margin. Wall up to 1.12 mm and port up to about 5 mm\u00b2 don't affect me.\n\nAcoustics, the spare interior is yours, now about 32 mm\u00b3. Please post your probe results with the port, volume and split you need. I OBJECT only because the siren still fails."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding 3800 mm\u00b3 and 800 mm\u00b2, which gives 60.0 h at 4.75 mm with the z-stack passing. I'm giving back nothing, because runtime tracks volume at about 0.016 h per mm\u00b3 and 3790 already drops to 59.84 h.\n\nAcoustics, if your probes show the siren needs cell energy, I can take the spare interior, now about 32 mm\u00b3. That adds about 0.5 h and keeps the z-stack passing. I also have 21 mm\u00b2 of spare caseback area. This round I'm probing 3830 mm\u00b3 at 800 mm\u00b2, 3800 mm\u00b3 at 820 mm\u00b2 for thickness margin, and 3780 mm\u00b3 at 800 mm\u00b2 for the cost of a trim.\n\nI OBJECT only because the siren still fails."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding 1400 mm\u00b3, with L5 at 0.189 at the 1.1 mm wall. My requirement is met and I'm taking none of the ~32 mm\u00b3 spare. Last round's probes give the costs in L5:\n\n- **Wall 1.11 mm:** 0.188.\n- **Wall 1.12 mm:** 0.187.\n- **Trimming to 1380 mm\u00b3:** 0.184, which is about 0.00025 per mm\u00b3.\n\nI'd rather not trim volume. If acoustics' probes show the siren needs the wall at 1.12 mm, I can live with that. This round I'm probing 1390 mm\u00b3 at 1.1 mm and 1.12 mm, plus 1400 mm\u00b3 at 1.13 mm, to see how steeply the wall cost grows.\n\nAcoustics, please post the port, volume and split you need. I OBJECT only because the siren still fails."
+    ],
+    [
+     "thermal",
+     "Thermal: my requirement is met at 322 mm\u00b2 (about 251 mm\u00b3), with skin temperature at 42.96 \u00b0C against the 43 \u00b0C limit. Last round's probes at wall 1.12 mm show 42.97 \u00b0C at 322 mm\u00b2 and 42.98 \u00b0C at 321 mm\u00b2. Even the 1.12 mm wall that acoustics might want leaves me at least 0.02 \u00b0C of margin. I'm taking none of the ~32 mm\u00b3 spare. It is acoustics' to claim.\n\nThis round I'm probing how far the wall can go if the siren needs it: 1.13 mm and 1.15 mm at 322 mm\u00b2, plus 323 mm\u00b2 at 1.12 mm. Acoustics, please post your probe results and the port, volume and split you need. I OBJECT only because the siren still fails."
+    ],
+    [
+     "structure",
+     "Structure: I'm holding wall 1.1 mm, ribs 1400 mm\u00b3 and a 4.0 mm\u00b2 port, with margin 1.527. Last round's probe showed extra ribs buy almost nothing: 1420 mm\u00b3 at a 5.0 mm\u00b2 port gave 1.466, which is on the same line as the 1400 mm\u00b3 points. So wall is the only lever for a bigger port.\n\nWall options for acoustics:\n- **1.11 mm:** about 4.6 mm\u00b2, costs 15 mm\u00b3.\n- **1.12 mm:** 5.0 mm\u00b2, costs 30 mm\u00b3, which uses the whole spare.\n\nAcoustics, post the port you need and I'll set the wall. This round I'm probing larger ports at 1.12, 1.13 and 1.15 mm so you can see how far the port can go. I stay at OBJECT only because the siren fails."
+    ],
+    [
+     "acoustics",
+     "Acoustics: last round's probes show the siren needs split, not port. The power-versus-port curve"
+    ],
+    [
+     "haptics",
+     "Haptics: my requirement is met, with force at 0.903 N at 295.5 mm\u00b3. Last round's probes passed at 295.0 and 294.8 mm\u00b3 (0.901 N each) and failed at 294.5 mm\u00b3 (0.900 N). I'm trimming to 295.0 mm\u00b3, which gives back 0.5 mm\u00b3 and keeps 0.2-0.3 mm\u00b3 above the cliff. I'm probing 294.6, 294.7 and 294.9 mm\u00b3 to place it more precisely. The wall can go up to 1.12 mm and the port up to about 5 mm\u00b2 without affecting me. I'm taking none of the spare, which is acoustics' to claim. Acoustics, your message cut off. Please post the split and the volume you need. I OBJECT only because the siren still fails."
+    ],
+    [
+     "nfc",
+     "NFC: my requirement is met at 12.7 mm against the 10 mm target. Loop is at 180 mm\u00b3 and ferrite at 110 mm\u00b3, both at their lower bounds, so I have nothing left to return. Wall up to 1.12 mm and port up to about 5 mm\u00b2 don't affect me. The perimeter keepout is at 1,580 of 2,400 mm\u00b3, so it isn't binding. The ledger has about 32 mm\u00b3 of spare interior, which is acoustics' to claim.\n\nAcoustics, your message was cut off. Please repost the split, volume and port you need. I'm holding my claims and staying at OBJECT only because the siren still fails."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11318,
+    "interior_over_by_mm3": -32,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2682,
+     "antenna": 1400,
+     "thermal": 251,
+     "structure": 1400,
+     "acoustics": 1200,
+     "haptics": 295,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1122,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 4.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1197.25,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1200.0,
+    "port": 4.0,
+    "split": 0.7,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 295.0,
+    "A_spr": 322.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 9,
+   "messages": [
+    [
+     "board",
+     "Board: routability is 0.95 and passing at 1197.25 mm\u00b2. Probes at 1197.0 and 1197.1 both passed, and 1196.9 failed earlier. I'm trimming to 1197.1 mm\u00b2 (about 2681.2 mm\u00b3), which returns roughly 0.3 mm\u00b3. I'm also probing 1196.95 and 1196.98 to place the cliff more precisely.\n\nWall up to 1.15 mm and port up to any size don't affect me. Acoustics, your message was cut off again. Please repost the split, volume and port you need. The spare interior is now about 32.3 mm\u00b3 and is yours. I OBJECT only because the siren still fails."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding 3800 mm\u00b3 at 800 mm\u00b2, which gives 60.0 h with the z-stack passing. I can't give back volume without dropping below 60 h (3780 mm\u00b3 gives 59.68 h).\n\nAcoustics, the siren endurance should scale with cell energy. If your split probes show you need energy, I can take the spare interior, now about 32 mm\u00b3.\n- **Spare taken in full:** 3832 mm\u00b3 at 800 mm\u00b2 gives about 60.5 h and 4.79 mm thick. That stays under the 4.86 mm z-stack limit (7.1 minus the 2.24 mm board stack).\n- **Caseback:** area up to about 820 mm\u00b2 fits the pool, and the larger area adds thickness margin.\n\nPlease post the volume and split you need. I'll size the cell to match. I'm probing 3832 mm\u00b3 at 800 mm\u00b2 and at 820 mm\u00b2, and 3815 mm\u00b3 at 810 mm\u00b2. I OBJECT only because the siren still fails."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding 1400 mm\u00b3 and taking none of the ~32 mm\u00b3 spare. L5 is 0.189 at the 1.1 mm wall.\n\nLast round's probes show the cost of the wall and of a trim:\n- **Trim:** 1390 mm\u00b3 at 1.1 mm gives 0.186, so a trim costs more than I estimated earlier.\n- **Wall at 1.12 mm:** 1390 mm\u00b3 gives 0.185 and 1400 mm\u00b3 gives 0.187.\n- **Wall at 1.13 mm:** 1400 mm\u00b3 gives 0.187.\n\nThe wall cost flattens out above 1.12 mm, so I can live with a wall up to about 1.13 mm if the siren needs it.\n\nAcoustics, your message was cut off twice. Please repost the split, volume, port and wall you need. This round I'm probing 1400 mm\u00b3 at 1.14 mm and 1.15 mm, and 1410 mm\u00b3 at 1.12 mm, to see whether more volume buys back L5.\n\nI OBJECT only because the siren still fails."
+    ],
+    [
+     "thermal",
+     "Thermal: my requirement is met at 322 mm\u00b2 (about 251 mm\u00b3), with skin temperature at 42.96 \u00b0C against the 43 \u00b0C limit. Last round's probes show the wall barely matters to me. At 1.13 mm and 1.15 mm skin temperature is 42.97 \u00b0C, and at 323 mm\u00b2 and 1.12 mm it is 42.96 \u00b0C. A wall up to 1.15 mm is fine with me.\n\nI'm taking none of the ~32 mm\u00b3 spare. It is acoustics' to claim. Acoustics, your message has been cut off for several rounds now. Please post the split, volume, port and wall you need, in short form.\n\nThis round I'm probing 321 mm\u00b2 at 1.1 mm and at 1.13 mm, and 320 mm\u00b2 at 1.1 mm. I'm checking whether I can give back about 1 to 2 mm\u00b3 without losing margin.\n\nI OBJECT only because the siren still fails."
+    ],
+    [
+     "structure",
+     "Structure: I'm holding wall 1.1 mm, ribs 1400 mm\u00b3 and the 4.0 mm\u00b2 port, with margin 1.527. Acoustics says the siren needs split, not port, so I won't raise the wall. Last round's probes cap the port at about 5.0 mm\u00b2 at wall 1.12 mm. At 1.13 mm and above the margin fails, even at 5.5 mm\u00b2.\n\nRibs are already at their lower bound. The wall is my only lever for giving volume back, since each -0.1 mm returns about 150 mm\u00b3. I'm probing 1.08, 1.06 and 1.05 mm at the 4.0 mm\u00b2 port to see if margin stays at or above 1.5. If it does, I'll trim next round, if the other leads' numbers hold at the thinner wall. Acoustics, please repost your split and volume. I OBJECT only because the siren still fails."
+    ],
+    [
+     "acoustics",
+     "Acoustics: sorry for the cutoffs. I'm repeating my claims in short form.\n\n- **Siren:** it needs 4.0 W against the 1.0 W limit, so it fails by about 6 dB. Endurance is 0.76 h against the 3 h target.\n- **Port:** the port isn't the lever, so structure should keep the wall at 1.1 mm and the 4 mm\u00b2 port.\n- **Split:** this is what I'm probing. I'm sweeping it downward from 0.7 and varying h_out.\n- **Volume:** I'm holding 1200 mm\u00b3 for now and will claim spare interior only if the probes show I need it.\n- **Battery:** the siren gap is large, so I may need battery energy as well. Battery, please keep 3800 mm\u00b3 in place for now."
+    ],
+    [
+     "haptics",
+     "Haptics: my requirement is met, with force at 0.901 N at 295.0 mm\u00b3.\n\nLast round's probes put the cliff between 294.6 mm\u00b3 (0.900 N, fail) and 294.7 mm\u00b3 (0.900 N, pass). The margin at 295.0 is thin but positive. I'm holding 295.0 mm\u00b3 rather than trimming another 0.3 mm\u00b3, because that would leave almost no margin.\n\nI'm taking none of the ~32 mm\u00b3 spare, which is acoustics' to claim. The wall can go up to 1.12 mm and the port up to about 5 mm\u00b2 without affecting me.\n\nI'm probing 294.8 and 295.2 mm\u00b3 for reference, plus 295.0 mm\u00b3 as a control. I OBJECT only because the siren still fails."
+    ],
+    [
+     "nfc",
+     "NFC: my requirement is met, with read range at 12.7 mm against the 10 mm target. Loop (180 mm\u00b3) and ferrite (110 mm\u00b3) are both at their lower bounds, so I have nothing to give back and nothing to claim from the spare. The perimeter keepout is at 1,580 of 2,400 mm\u00b3 and isn't binding. A wall up to 1.15 mm and a port up to any size don't affect me. If structure trims the wall to 1.05-1.08 mm, I'm unaffected. All ~32 mm\u00b3 of spare interior is acoustics' to claim once the split probes show what the siren needs. Acoustics, please post a concrete split and volume. I'm holding my claims and staying at OBJECT only because the siren still fails."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11318,
+    "interior_over_by_mm3": -32,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2682,
+     "antenna": 1400,
+     "thermal": 251,
+     "structure": 1400,
+     "acoustics": 1200,
+     "haptics": 295,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1122,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 4.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1197.1,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1200.0,
+    "port": 4.0,
+    "split": 0.7,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 295.0,
+    "A_spr": 322.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 10,
+   "messages": [
+    [
+     "board",
+     "Board: routability is 0.95 and passing. Probes at 1196.95 and 1196.98 failed, and 1197.0 passed earlier, so the cliff is between 1196.98 and 1197.0. I'm trimming to 1197.0 mm\u00b2 (about 2680.96 mm\u00b3), which returns roughly 0.2 mm\u00b3 more. I'm going no lower, because the margin is already gone. The wall (1.05-1.15 mm), the port size and battery thickness don't affect me.\n\nAcoustics, the spare interior is now about 32.5 mm\u00b3 and is yours. Please post a split that closes the 4.0 W vs 1.0 W gap. If you need board-side help, tell me what it is, because I can't shrink the board. I OBJECT only because the siren still fails."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding 3800 mm\u00b3 at 800 mm\u00b2, which gives 60.0 h with the z-stack passing. Extra cell energy cannot close the siren gap on its own. The siren fails on a 4x power overage (4.0 W against 1.0 W), and 3832 mm\u00b3 adds only about 0.9% energy. Acoustics, the fix has to be in your split and h_out. If your probes show a siren-endurance gain per mm\u00b3 of cell, post it and I'll take the spare interior. Until then I'm giving back nothing, because 3780 mm\u00b3 drops me to 59.68 h. I'm probing 3800 mm\u00b3 at 820 mm\u00b2 for thickness margin, 3790 mm\u00b3 at 800 mm\u00b2 to place the 60 h edge, and 3832 mm\u00b3 at 800 mm\u00b2. I OBJECT only because the siren still fails."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding 1400 mm\u00b3 and claiming none of the ~33 mm\u00b3 spare. L5 is 0.189 at the 1.1 mm wall. The wall costs me little up to 1.13 mm and 0.185 to 0.186 at 1.14-1.15 mm, so I can accept up to 1.13 mm if the siren needs it.\n\nVolume buys back only a little L5. 1410 mm\u00b3 at 1.12 mm gives 0.190. That is not worth taking from acoustics' spare.\n\nAcoustics, the 4.0 W vs 1.0 W gap is yours to close. Please post a concrete split and h_out. I'm probing 1410 mm\u00b3 at 1.1 mm, 1400 mm\u00b3 at 1.06 mm, and 1390 mm\u00b3 at 1.06 mm, to see whether a thinner wall lets me give back volume. I OBJECT only because the siren still fails."
+    ],
+    [
+     "thermal",
+     "Thermal: skin temperature is 42.98 \u00b0C at 321 mm\u00b2 and 42.99 \u00b0C at 320 mm\u00b2, both passing, and the wall has almost no effect. I'm trimming to 321 mm\u00b2 (about 250.4 mm\u00b3), which returns about 0.8 mm\u00b3 and keeps 0.02 \u00b0C of margin. I'm probing 319, 317 and 315 mm\u00b2 at the 1.1 mm wall to find the cliff. If 320 mm\u00b2 still has margin, I'll trim there next round.\n\nAcoustics, the roughly 33 mm\u00b3 of spare interior is yours. Please post the split, h_out and volume you need, because the 4.0 W vs 1.0 W siren gap is the only open issue. I OBJECT only because the siren still fails."
+    ],
+    [
+     "structure",
+     "Structure: I'm holding wall 1.1 mm, ribs 1400 mm\u00b3 and the 4.0 mm\u00b2 port, with margin 1.527.\n\nLast round's probes show the margin below 1.5 at thinner walls:\n- **1.08 mm:** 1.49\n- **1.06 mm:** 1.453\n- **1.05 mm:** 1.435\n\nInterpolating, the 1.5 line sits near 1.085 mm. Each 0.01 mm of wall returns about 15 mm\u00b3, so I'm probing 1.085, 1.09 and 1.095 mm to see whether a small trim is safe. I won't trim without margin left over.\n\nAcoustics, the wall can't rise above 1.12 mm and the port can't exceed 5 mm\u00b2, so the 4.0 W vs 1.0 W gap has to close in your split and h_out. Please post a concrete split and volume. I OBJECT only because the siren still fails."
+    ],
+    [
+     "acoustics",
+     "Acoustics: sorry for the earlier cutoffs. The siren still fails at 3.5 W against the 1.0 W limit. The best split so far is 0.5, where power is 3.50 W, against 4.0 W at 0.7 and 4.37 W at 0.35. At 0.5 the voice score drops from 85.1 to 80.5. The h_out value changes nothing, and I have not yet probed volume, port or mesh. This round I'm probing those three.\n\n- **Port:** 5 mm\u00b2 at split 0.5. Structure, please hold the wall at 1.1 mm so that port stays open.\n- **Volume:** 1232 mm\u00b3, which takes the ~33 mm\u00b3 spare. I'm also probing 1600 mm\u00b3 at a 6 mm\u00b2 port as a what-if.\n\nI'll post the findings next round."
+    ],
+    [
+     "haptics",
+     "Haptics: force is 0.901 N and passing. Last round's probes at 294.8 and 295.2 mm\u00b3 both passed, and the cliff sits between 294.6 (fail) and 294.7 (pass). I'm trimming to 294.8 mm\u00b3, which returns 0.2 mm\u00b3 and keeps about 0.1 mm\u00b3 of margin above the cliff. I'm going no lower. I'm unaffected by wall up to 1.12 mm and by port up to about 5 mm\u00b2. Acoustics, the spare interior is yours. Please post the volume and split that close the siren gap (3.5 W against 1.0 W). I'll stay at OBJECT only because the siren still fails."
+    ],
+    [
+     "nfc",
+     "NFC: my requirement is met, with read range 12.7 mm against the 10 mm target. Loop (180 mm\u00b3) and ferrite (110 mm\u00b3) are both at their lower bounds, so I have nothing to give back. The perimeter keepout is at 1,580 of 2,400 mm\u00b3 and isn't binding. Wall changes between 1.05 and 1.15 mm and any port size don't affect me.\n\nAcoustics, the spare interior is only about 2 mm\u00b3 after your claim of 1232. If your 1600 mm\u00b3 what-if at a 6 mm\u00b2 port closes the siren gap, the extra ~370 mm\u00b3 has to come from somewhere. Structure's wall trim to about 1.085 mm is worth about 22 mm\u00b3. Please post the siren power for that probe. I'm holding my claims and staying at OBJECT because the siren still fails."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11348,
+    "interior_over_by_mm3": -2,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2681,
+     "antenna": 1400,
+     "thermal": 250,
+     "structure": 1400,
+     "acoustics": 1232,
+     "haptics": 295,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1121,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 4.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1197.0,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1232.0,
+    "port": 4.0,
+    "split": 0.5,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 294.8,
+    "A_spr": 321.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 11,
+   "messages": [
+    [
+     "board",
+     "Board: I'm holding 1197.0 mm\u00b2 (about 2680.96 mm\u00b3). Routability is 0.95 and passing. The 1196.99 probe failed and 1197.05 passed, so 1197.0 is the cliff and there is nothing more to trim. Wall, port and battery don't affect me.\n\nAcoustics, the ~2 mm\u00b3 of spare interior is yours. If your 1600 mm\u00b3 / 6 mm\u00b2 port what-if closes the siren gap, the extra ~370 mm\u00b3 cannot come from the board. Please post the siren power for that probe and for the 1.085 mm wall, and we can see what the other pools can fund. I stay at OBJECT only because the siren still fails (3.5 W against 1.0 W) in the current ledger."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding 3800 mm\u00b3 at 800 mm\u00b2, which gives 60.0 h with thickness 4.75 mm and a 6.99 mm stack against the 7.1 mm limit. The cell can't close the siren gap. Runtime moves about 0.016 h per mm\u00b3, or roughly 0.03% energy per mm\u00b3. Going from 3.5 W to 1.0 W would take about 3.5x the energy, and even the 5200 mm\u00b3 cell cap gives only about 1.37x.\n\nAcoustics, the gap has to close through split, mesh or power draw. If your 1600 mm\u00b3 what-if works, post its siren watts and I'll check what cell volume the 60 h target could still spare. This round I'm probing the energy and thickness limits at larger cells to quantify the trade"
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding 1400 mm\u00b3 and claiming none of the spare. L5 is 0.189 at the 1.1 mm wall.\n\nLast round's probes show the cost of volume. At 1.1 mm, 1410 mm\u00b3 gives 0.192 and 1400 gives 0.189, so about 0.0003 L5 per mm\u00b3. At 1.06 mm, 1390 gives 0.190 and 1400 gives 0.193. A thinner wall would let me give back volume, so Structure's 1.085 mm result matters to me.\n\nAcoustics, I can fund some of your volume ask. First post the siren power for your 1600 mm\u00b3 what-if. I'm probing 1350, 1250 and 1390 mm\u00b3 at 1.09 mm to price what I could give. I'll OBJECT only because the siren fails."
+    ],
+    [
+     "thermal",
+     "Thermal: skin temperature is 43.00 \u00b0C at 319 mm\u00b2 and still passes. 317 mm\u00b2 fails at 43.02 \u00b0C. The slope is about 0.01 \u00b0C per mm\u00b2, so the cliff sits near 318.5 to 319. I'm trimming to 319.5 mm\u00b2 (about 249.2 mm\u00b3), which returns about 1.2 mm\u00b3 and keeps a small margin. I'm not taking 319.0, because Structure's wall may move to 1.085 mm and I want some cushion. The 1.2 mm\u00b3 plus the 2 mm\u00b3 spare goes to Acoustics. My probes are 318, 318.5, and 319 mm\u00b2 at a 1.085 mm wall, to check that the wall doesn't shift the cliff.\n\nAcoustics, the siren gap is still yours to close. Please post the siren watts for the 1600 mm\u00b3 / 6 mm\u00b2 what-if, so we can see what the other pools can fund. I OBJECT only because the siren still fails."
+    ],
+    [
+     "structure",
+     "Structure: last round's probes at port 4.0 mm\u00b2 gave margin 1.499 at 1.085 mm (fail), 1.509 at 1.09 mm and 1.518 at 1.095 mm, so the cliff is at about 1.086 mm. Trimming to 1.09 mm would return about 15 mm\u00b3, but the margin there is only 0.009.\n\nAcoustics, you want a 5 mm\u00b2 port, and that costs pressure margin. Until I see the port sensitivity I'm holding 1.1 mm so your port stays open. I'm probing port 5 at 1.1 mm, port 5 at 1.12 mm, and port 6 at 1.1 mm. If port 5 passes at 1.1 mm, I won't move the wall. If it needs 1.12 mm, that costs everyone about 30 mm\u00b3, so tell me the siren watts for each port size."
+    ],
+    [
+     "acoustics",
+     "Acoustics: here are the numbers. At split 0.5 and 1232 mm\u00b3, port 4 mm\u00b2 gives 3.75 W and port 5 mm\u00b2 gives 2.48 W, with resonance rising from 3061 to 3300 Hz. The 1600 mm\u00b3 / 6 mm\u00b2 what-if gave 3.80 W (resonance 2787 Hz), so extra volume hurts. More volume lowers resonance, and the siren seems to want it higher. The fix is likely a bigger port and a smaller cavity, which also returns volume.\n\nI'm claiming port 5 now. Structure, please hold 1.1 mm and tell me whether port 5 passes. This round I'm probing V 1000 and 900 at port 5, and V 1100 at port 6. Nobody should fund more volume for me."
+    ],
+    [
+     "haptics",
+     "Haptics: force is 0.901 N at 294.8 mm\u00b3 and passing. The 294.7 mm\u00b3 probe passed (0.900 N) and 294.6 failed, so I'm trimming to 294.7, which returns 0.1 mm\u00b3. I'm going no lower. Port up to 5 mm\u00b2 and wall up to 1.12 mm don't affect me.\n\nAcoustics, your 5 mm\u00b2 port at 2.48 W is a good direction, and the volume-hurts finding means a smaller cavity should work. Any cavity volume you free is real give-back for the pool. I can't contribute volume: 295 mm\u00b3 is the floor. I stay at OBJECT only because the siren still fails (2.48 W against 1.0 W)."
+    ],
+    [
+     "nfc",
+     "NFC: my requirement is met, with read range 12.7 mm against the 10 mm target. Loop (180 mm\u00b3) and ferrite (110 mm\u00b3) are both at their lower bounds, so I have nothing to give back. Perimeter use is 1,580 of 2,400 mm\u00b3 and isn't binding. Wall and port changes don't affect me.\n\nAcoustics, your finding that a bigger port with a smaller cavity cuts siren power (2.48 W at port 5, still against a 1.0 W limit) is a good direction. Any cavity volume you free is real give-back. I can't contribute volume. I stay at OBJECT only because the siren still fails."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11347,
+    "interior_over_by_mm3": -3,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2681,
+     "antenna": 1400,
+     "thermal": 249,
+     "structure": 1400,
+     "acoustics": 1232,
+     "haptics": 295,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1120,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 5.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1197.0,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1232.0,
+    "port": 5.0,
+    "split": 0.5,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 294.7,
+    "A_spr": 319.5,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  },
+  {
+   "round": 12,
+   "messages": [
+    [
+     "board",
+     "Board: I'm holding 1197.0 mm\u00b2 (about 2681 mm\u00b3). Routability is 0.95 and passes, and 1196.99 fails, so I have nothing left to give. My own requirement is met, but I stay at OBJECT because the ledger still fails the siren (2.48 W against 1.0 W at port 5).\n\nThe remaining lever is the port-and-cavity route Acoustics found. A larger port with a smaller cavity cuts siren power and frees volume. The port pool has 11 mm\u00b2 and only 5 are in use. Structure, please price port 6 and above against wall thickness. Acoustics, if V 900 to 1100 at port 6 or higher closes the gap, any volume you free is real give-back to the pool. I'm not asking for any of the spare 3 mm\u00b3."
+    ],
+    [
+     "battery",
+     "Battery: I'm holding 3800 mm\u00b3 at 800 mm\u00b2. That gives 60.0 h with a 6.99 mm stack against the 7.1 mm limit, so my own requirement is met. I have no volume to give back, because each mm\u00b3 cut costs about 0.016 h.\n\nThe siren gap isn't a battery problem. Even the 5200 mm\u00b3 cap gives only about 1.37x energy against the roughly 2.5x needed at 2.48 W, so Acoustics' port-and-cavity route is the only one that closes it. Acoustics, if V 900\u20131100 at port 5 or 6 reaches about 1 W or less, any cavity volume you free is real give-back. If a cell resize would then help, tell me the volume and I'll check the runtime.\n\nI stay at OBJECT only because the siren still fails in the current ledger. I'll flip to ACCEPT as soon as the numbers close. My probes this round price larger cells for the siren endurance side."
+    ],
+    [
+     "antenna",
+     "Antenna: I'm holding 1400 mm\u00b3 and claiming none of the spare. L5 is 0.189 at the 1.1 mm wall. At 1.09 mm, 1390 mm\u00b3 gave 0.187 and 1350 gave 0.177. Below about 1390 mm\u00b3 the loss steepens (1250 gave 0.152), so I have no volume to give back at this wall.\n\nAcoustics, your port-and-cavity route is the only one left. Any cavity volume you free is real give-back. If the pool has room after that, I'd rather it go to antenna volume or a thinner wall than sit unused. Structure, holding 1.1 mm costs me about 0.003 L5 against 1.09 mm, so I'll accept it if port 5 needs it.\n\nThis round I'm probing the wall at 1.09 and 1.12 mm, plus 1380 mm\u00b3 at 1.1 mm. My own requirement is met, but the ledger still fails the siren (2.48 W against 1.0 W), so I stay at OBJECT."
+    ],
+    [
+     "thermal",
+     "Thermal: skin temperature was 42.99 \u00b0C at 319.5 mm\u00b2. At the thinner 1.085 mm wall, 319.0 mm\u00b2 passed at 43.00 \u00b0C and 318.5 mm\u00b2 failed. At the current 1.1 mm wall I should have at least that much margin, so I'm trimming to 319.0 mm\u00b2 (about 248.8 mm\u00b3) and returning about 0.4 mm\u00b3. If Structure moves the wall to 1.09 mm or above, I stay valid. I can't go lower. Port size and battery don't affect me.\n\nI have no more volume to give. The siren is still failing (2.48 W against 1.0 W), so I stay at OBJECT until Acoustics' port-and-cavity route closes it. Any cavity volume freed there should go to Antenna or to a thinner wall."
+    ],
+    [
+     "structure",
+     "Structure: port 5 at 1.1 mm gives margin 1.465, which fails. At 1.12 mm it gives 1.502, which passes. I can't hold 1.1 mm and still meet my requirement, so I'm moving to the smallest wall that passes, about 1.119 mm. I'm claiming 1.12 for cushion.\n\nThat wall shrinks the interior pool by about 30 mm\u00b3, from 11350 to 11320. The ledger is then roughly 27 mm\u00b3 over. Acoustics, a cavity at V 1000 or below at port 5 would more than cover that. Port 6 would need a wall of about 1.15 mm, which costs about 75 mm\u00b3 in total, so it only works if the cavity savings exceed that.\n\nMy probes this round pin the wall cliff at port 5 and price port 5.5."
+    ],
+    [
+     "acoustics",
+     "Acoustics: Structure's wall move to 1.12 mm shrinks the pool to about 11,320 mm\u00b3 and puts the ledger roughly 27 mm\u00b3 over. I'm cutting V to 1200 mm\u00b3 at port 5, which returns 32 mm\u00b3 and closes the ledger.\n\nSiren power is still 2.5 W against 1.0 W. Volume and port don't close that gap alone. Smaller V raises resonance, and power got worse at 1000 mm\u00b3 (2.83 W) and at 900 mm\u00b3 (4.11 W). I haven't yet probed split, which sets the back-cavity share, or h_out. This round I'm probing split 0.7, split 0.3 and h_out 2.0 at V 1200. I'll OBJECT because my own siren requirement fails."
+    ],
+    [
+     "haptics",
+     "Haptics: my force is 0.900 N at 294.7 mm\u00b3, so my requirement is met. 294.65 also passed but 294.6 failed, so 294.7 leaves a small cushion. The 0.05 mm\u00b3 isn't worth the risk. Wall and port changes don't affect me, so Structure's move to 1.12 mm is fine from my side.\n\nWith Acoustics at 1200 mm\u00b3 and the wall at 1.12 mm, the pool is about 11,320 mm\u00b3 against about 11,315 claimed, so the interior just closes. I'm OBJECTing only because the siren still fails at about 2.5 W against 1.0 W. Acoustics' split and h_out probes are the remaining lever. I have no volume to give."
+    ],
+    [
+     "nfc",
+     "NFC: my requirement is met. Read range is 12.7 mm against the 10 mm target, with the loop at 180 mm\u00b3 and the ferrite at 110 mm\u00b3, both at their lower bounds. Perimeter use is 1,580 of 2,400 mm\u00b3 and isn't binding. I have no volume to give back. Wall and port changes don't affect me, so Structure's move to 1.12 mm is fine from my side.\n\nThe interior roughly closes at the 1.12 mm wall: the pool is about 11,320 mm\u00b3 against about 11,315 claimed. The only open issue is the siren, which is still at about 2.5 W against a 1.0 W limit. That is Acoustics' domain, and the split and h_out probes are the remaining lever. I can't fund any more volume.\n\nI stay at OBJECT only because the siren still fails in the ledger. I can't accept a ledger that misses a program goal, even though my own number passes."
+    ]
+   ],
+   "statuses": {
+    "board": "OBJECT",
+    "battery": "OBJECT",
+    "antenna": "OBJECT",
+    "thermal": "OBJECT",
+    "structure": "OBJECT",
+    "acoustics": "OBJECT",
+    "haptics": "OBJECT",
+    "nfc": "OBJECT"
+   },
+   "ledger": {
+    "interior_pool_mm3": 11350,
+    "interior_claimed_mm3": 11315,
+    "interior_over_by_mm3": -35,
+    "volume_by_domain": {
+     "battery": 3800,
+     "board": 2681,
+     "antenna": 1400,
+     "thermal": 249,
+     "structure": 1400,
+     "acoustics": 1200,
+     "haptics": 295,
+     "nfc": 290
+    },
+    "caseback_claimed_mm2": 1119,
+    "caseback_pool_mm2": 1143,
+    "perimeter_claimed_mm3": 1580,
+    "perimeter_pool_mm3": 2400,
+    "port_mm2": 5.0,
+    "port_pool_mm2": 11,
+    "wall_mm": 1.1
+   },
+   "claims": {
+    "V_batt": 3800.0,
+    "A_batt": 800.0,
+    "A_board": 1197.0,
+    "V_struct": 1400.0,
+    "t_wall": 1.1,
+    "V_ant": 1400.0,
+    "V_acou": 1200.0,
+    "port": 5.0,
+    "split": 0.5,
+    "h_out": 3.5,
+    "r_mesh": 20.0,
+    "V_hap": 294.7,
+    "A_spr": 319.0,
+    "V_loop": 180.0,
+    "V_ferr": 110.0
+   },
+   "notices": []
+  }
+ ],
+ "priority_note": "Keep every domain lean; give back any volume you do not need.",
+ "direction": "mass_light",
+ "wall_s": 674.0060732364655,
+ "model": "claude-sonnet-5-5",
+ "sampling": "model default"
+}

@@ -1,0 +1,122 @@
+{
+ "model": "claude-haiku-5-5",
+ "source": "arm5x_claude-haiku-5-5_r1.json",
+ "records": [
+  {
+   "direction": "balanced",
+   "trace": "**Decision trace: architecture allocation (program direction: none)**\n\n**Formulation.** Achievement scalarisation with weights runtime 0.3, siren 0.2, voice 0.2, l5 0.3, and a siren floor of 3.0. The siren objective lands exactly on its floor (3.0). Achieved values: runtime 58.979, voice 76.025, l5 0.103.\n\n**1. Concessions versus original claims**\n- **Largest cuts:** V_ant 1070.587 (claim 1500.0), V_struct 1400.229 (1800.0), V_acou 1243.825 (1460.0), r_mesh 20.0 (40.0), V_loop 238.529 (320.0).\n- **Smaller cuts:** V_hap 294.615 (350.0), A_board 1197.0 (1250.0), V_ferr 154.612 (180.0), split 0.3 (0.78).\n- **Domains that exceeded their claims:** t_wall 1.287 (1.2), port 10.214 (9.0), h_out 3.5 (1.0), A_spr 321.048 (320.0).\n\n**2. Couplings driving the concessions** (ranked by price magnitude; the arbiter's coupling prices are reported as given)\n- **Thermal\u2013structural wall time:** th:t_wall 4.45e22 and str:t_wall \u22124.17e22. These are the largest prices and explain why t_wall moved above its claim.\n- **Structure:** str:V_struct 1.86e22 pressed V_struct down.\n- **Haptics:** hap:V_hap 1.38e22 pressed V_hap down.\n- **Antenna:** ant:V_ant 3.53e21 pressed V_ant down.\n- **Acoustics:** ac:P_siren \u22127.50e20 and ac:V_acou \u22125.47e20 pressed V_acou down.\n\nThe absolute magnitudes (~1e22) are implausibly large for physical couplings. Treat them as ordinal only until the scaling is confirmed.\n\n**3. What the design gives up**\nAntenna, structure, and acoustic volume, plus mesh resolution (r_mesh halved), are sacrificed to hold the siren floor and runtime. Thermal wall time and port count also overrun their claims.\n\n**4. Risk to probe**\nThe siren objective is at its floor, and the acoustic couplings (ac:P_siren, ac:V_acou, ac:port, ac:voice) are among the costly prices. Any error in the acoustic model (p_siren 0.836, f_res 3490.695 Hz, mass 58.261) leaves no margin. Ask whether the siren floor can be verified independently of the arbiter.",
+   "grounding": {
+    "numbers": 50,
+    "grounded": 49,
+    "rate": 0.98
+   },
+   "stop_reason": "end_turn",
+   "words": 277
+  },
+  {
+   "direction": "battery_first",
+   "trace": "**Decision trace: allocation under achievement scalarisation**\n\n**1. Concessions versus original claims**\n\nRuntime reached 61.341 h against the ~60 h protection target, and siren reached 3.001 against its 3.0 floor. The cost was paid mainly by the acoustic, structural and antenna domains:\n\n- V_ant: 1500 \u2192 900 (\u2212600)\n- V_struct: 1800 \u2192 1471.683 (\u2212328.317)\n- V_acou: 1460 \u2192 1202.765 (\u2212257.235)\n- V_hap: 350 \u2192 294.615 (\u221255.385)\n- A_board: 1250 \u2192 1197.0 (\u221253)\n- V_loop: 320 \u2192 267.327 (\u221252.673)\n- r_mesh: 40 \u2192 20; split: 0.78 \u2192 0.3\n\nV_batt (+98.915), A_batt (+13.983) and h_out (1.0 \u2192 3.5) took more than originally claimed.\n\n**2. Couplings driving the concessions**\n\n- ac:P_siren (\u22122.26) and ac:V_acou (\u22121.32) are the strongest prices, consistent with the acoustic volume cut.\n- str:t_wall (\u22121.75) and str:V_struct (\u22120.09) account for the structural reduction.\n- board:A_board (\u22121.25) and hap:V_hap (\u22120.43) match the board and haptic cuts.\n- ac:port (\u22120.64) and th:A_spr (\u22120.28) are smaller contributors.\n\nV_ant fell 600 with a coupling price of 0.0, and it is not on the binding list. No coupling in the data explains that cut.\n\n**3. What the design gives up**\n\nSiren sits within 0.001 of its floor. Haptic force, board routability, volume, pressure and skin temperature are all binding or near-binding. Mesh radius is halved and the antenna is 40% below its claim. Voice (75.426) and l5 (0.074) are reported without original claims, so their concessions cannot be assessed here.\n\n**4. Risk to probe**\n\nThe 600-unit antenna reduction carries zero coupling price, so the arbiter has not recorded why it was taken. Reviewers should confirm whether V_ant is slack, an artefact of the weighting, or a real trade for runtime before accepting the allocation.",
+   "grounding": {
+    "numbers": 48,
+    "grounded": 48,
+    "rate": 1.0
+   },
+   "stop_reason": "end_turn",
+   "words": 278
+  },
+  {
+   "direction": "siren_first",
+   "trace": "**Decision trace**\n\n**1. Concessions vs. original claims.** Largest cuts: V_struct 1800\u21921400 (\u221222%), V_ant 1500\u21921112.6 (\u221226%), V_acou 1460\u21921268.9 (\u221213%), V_batt 3786\u21923656.2, V_loop 320\u2192228.7 (\u221229%), V_hap 350\u2192294.6 (\u221216%), A_board 1250\u21921197, r_mesh 40\u219220 (\u221250%), split 0.78\u21920.3 (\u221262%). Relaxed upward: h_out 1.0\u21923.5, port 9.0\u219210.749, t_wall 1.2\u21921.304, A_spr 320\u2192321.249. A_batt held (800\u2192799.733).\n\n**2. Driving couplings.** By price magnitude: bat:A_batt (1.75e22), str:port (\u22125.01e21), board:A_board (\u22123.12e21), hap:V_hap (1.65e21), th:A_spr (\u22127.10e20), nfc:V_loop (\u22121.90e20). These map to the board, haptic, thermal and loop concessions. The voice/acoustic trade is driven by ac:voice (\u22129.09e19) and ac:V_acou (1.86e19). The V_struct cut is large, yet str:V_struct (1.29e19) is far smaller than the top prices, so it is not the dominant driver; this needs explaining.\n\n**3. What the design gives up.** L5 reaches only 0.11 despite weight 0.3. Voice reaches 76.378 with the acoustic budget reduced. Split and r_mesh are cut by 62% and 50%. Siren meets its floor of 3.0 exactly, with no margin.\n\n**4. Risk to probe.** Dual prices span about 1e17 to 1e22, and the largest sits on bat:A_batt, where the allocation barely moved (799.733 vs 800). Either the duals are poorly scaled or that constraint is degenerate, so price rankings should not be trusted until they are normalized. Also, the data gives no dB value for the siren. The 86 dB @ 1 m and \u22653 h requirements rest on the model outputs (p_siren 0.814, f_res 3490.695 Hz), and the siren sits exactly on its floor. Verify SPL and runtime against measurement or higher-fidelity modelling before sign-off.",
+   "grounding": {
+    "numbers": 63,
+    "grounded": 62,
+    "rate": 0.9841269841269841
+   },
+   "stop_reason": "end_turn",
+   "words": 247
+  },
+  {
+   "direction": "gnss_first",
+   "trace": "**Decision trace: power, antenna and structure allocation**\n\n**1. Concessions versus original claims**\n- V_ant: 1500 \u2192 1053.735 (\u2212446.3, \u221229.8%), the largest cut.\n- V_struct: 1800 \u2192 1400 (\u2212400, \u221222.2%).\n- V_acou: 1460 \u2192 1222.473 (\u2212237.5).\n- V_loop: 320 \u2192 220.479 (\u221299.5). V_hap: 350 \u2192 294.615 (\u221255.4). A_board: 1250 \u2192 1197 (\u221253).\n- r_mesh: 40 \u2192 20. split: 0.78 \u2192 0.3.\n- Gains taken elsewhere: h_out 1.0 \u2192 3.5, t_wall 1.2 \u2192 1.283, V_batt 3786 \u2192 3804.775, A_batt 800 \u2192 822.002.\n\n**2. Driving couplings**\nThe largest prices are th:t_wall (4.92e22), bat:V_batt (2.71e22), ant:V_ant (1.52e22), nfc:V_loop (1.41e22) and str:V_struct (9.89e21). The V_ant, V_loop and V_struct cuts sit on the ant, nfc and str couplings. Acoustic couplings are about three orders of magnitude smaller (ac:voice 7.24e19, ac:V_acou \u22123.02e19), so the acoustic concession was cheap to settle.\n\n**3. What the design gives up**\nL5 reaches only 0.1 despite the largest weight (0.45), so the allocation does not deliver the stated top priority. Runtime (60.075) and voice (75.73) are achieved, and siren sits exactly at its 3.0 floor. Six constraints are binding or near-binding (C1_volume, C2_caseback, O6_pressure, O5_skin_temp, haptic_force, board_routability), leaving no slack.\n\n**4. Risk to probe**\nL5 at 0.1 under a 0.45 weight. Either the achievement scalarisation is saturating, or L5 is blocked by the antenna cut (V_ant \u221229.8%). Check that the L5 model is consistent with the antenna volume, and test whether reweighting changes the result. Also verify the price scale: magnitudes run from about 1e22 to 1e17, and values this large may reflect unnormalised units rather than a true ranking.",
+   "grounding": {
+    "numbers": 53,
+    "grounded": 52,
+    "rate": 0.9811320754716981
+   },
+   "stop_reason": "end_turn",
+   "words": 258
+  },
+  {
+   "direction": "voice_first",
+   "trace": "**Decision trace: allocation under achievement scalarisation**\n\n**Formulation.** Weights are voice 0.4, l5 0.25, runtime 0.2, siren 0.15, with a siren floor of 3.0. Achieved values are voice 76.256, runtime 58.103, siren 3.0 (at floor), l5 0.103. Voice intelligibility is the top priority, per the program direction.\n\n**1. Concessions versus original claims**\n\n- V_ant: 1500 \u2192 1072.84 (\u2212427.16)\n- V_struct: 1800 \u2192 1400 (\u2212400)\n- V_acou: 1460 \u2192 1259.829 (\u2212200.171)\n- V_loop: 320 \u2192 251.106 (\u221268.894)\n- V_hap: 350 \u2192 295.515 (\u221254.485)\n- A_board: 1250 \u2192 1197.0 (\u221253)\n- V_batt: 3786 \u2192 3679.843 (\u2212106.157)\n- V_ferr: 180 \u2192 157.062 (\u221222.938)\n- r_mesh: 40 \u2192 20; split: 0.78 \u2192 0.3\n- t_wall: 1.2 \u2192 1.301 (thicker); port: 9.0 \u2192 10.673 (higher)\n\n**2. Couplings driving the concessions**\n\nThe largest prices are str:V_struct (2.42e21), str:t_wall (2.32e20), bat:V_batt (1.86e20), str:port (\u22121.10e20), and ant:V_ant (1.01e20). Structure and antenna volume were the most contested, which explains the largest cuts. The voice coupling ac:voice (\u22124.12e18) shows the acoustic side pushing toward voice, consistent with V_acou being conceded only in exchange for voice gain.\n\n**3. What the design gives up**\n\nIt gives up antenna volume (\u2212427), structural volume (\u2212400), and acoustic volume (\u2212200), along with mesh radius (half the original claim) and a lower split. Wall thickness and port count move the wrong way for their original claims. Runtime (58.103) and l5 (0.103) are reported without original claims, so their cost cannot be assessed from this record.\n\n**4. Risk for reviewers to probe**\n\nThe coupling prices span roughly 1e21 to 1e15, several orders of magnitude beyond the objective values. This suggests a scaling or normalisation artifact. If so, the price ranking, and therefore the claim that structure drove the concessions, may not be reliable. Rerun with normalised variables and confirm the ranking holds before accepting the trade.",
+   "grounding": {
+    "numbers": 58,
+    "grounded": 58,
+    "rate": 1.0
+   },
+   "stop_reason": "end_turn",
+   "words": 298
+  },
+  {
+   "direction": "mass_light",
+   "trace": "**Decision trace: volume allocation (achievement scalarisation)**\n\n**1. Concessions vs. original claims**\n- V_ant: 1500 \u2192 1070.587 (\u2212429.4, the largest cut)\n- V_struct: 1800 \u2192 1400.229 (\u2212399.8)\n- V_acou: 1460 \u2192 1243.825 (\u2212216.2)\n- V_loop: 320 \u2192 238.529; V_hap: 350 \u2192 294.615; A_board: 1250 \u2192 1197.0; V_batt: 3786 \u2192 3735.348\n- r_mesh: 40 \u2192 20; split: 0.78 \u2192 0.3\n- Gains: h_out 1.0 \u2192 3.5; t_wall 1.2 \u2192 1.287 (over claim); port 9.0 \u2192 10.214; A_spr 320 \u2192 321.048\n\n**2. Driving couplings**\nThe largest duals are th:t_wall (4.45e22) and str:t_wall (\u22124.17e22), which have opposite signs and near-equal magnitude. They account for the t_wall overrun. The structural coupling str:V_struct (1.86e22), the haptic coupling hap:V_hap (1.38e22), and the antenna coupling ant:V_ant (3.53e21) drove the V_struct, V_hap, and V_ant cuts.\n\n**3. What the design gives up**\nIt gives up antenna, structural, loop, and haptic volume, halves mesh resolution, and cuts split to 0.3. Five constraints bind or nearly bind: C1_volume, O6_pressure, O5_skin_temp, haptic_force, and board_routability. The siren objective sits exactly at its 3.0 floor with no slack, and wall time exceeds its claim.\n\n**4. Risk to probe**\nDual magnitudes near 1e22 are implausible as physical sensitivities. They suggest unscaled or ill-conditioned multipliers. Until the problem is rescaled, only the ranking is reliable. The near-cancelling th/str:t_wall pair may mean the arbiter is trading time against structure without a stable resolution. Reviewers should request a rescaled re-solve and check whether the t_wall result survives.",
+   "grounding": {
+    "numbers": 41,
+    "grounded": 41,
+    "rate": 1.0
+   },
+   "stop_reason": "end_turn",
+   "words": 238
+  },
+  {
+   "direction": "schedule",
+   "trace": "**Decision trace: acoustic-siren allocation**\n\n**1. Concessions versus original claims**\n\n- **Antenna** fell most: V_ant 900.246 vs 1500.0 (\u2212599.754).\n- **Structure:** V_struct 1516.791 vs 1800.0 (\u2212283.209). Wall thickened: t_wall 1.278 vs 1.2.\n- **Acoustic:** V_acou 1241.497 vs 1460.0 (\u2212218.503).\n- **Haptic:** V_hap 294.615 vs 350.0 (\u221255.385).\n- **Board:** A_board 1197.0 vs 1250.0 (\u221253.0).\n- **Loop:** V_loop 272.842 vs 320.0 (\u221247.158).\n- **Mesh and split:** r_mesh 20.0 vs 40.0; split 0.3 vs 0.78.\n- **Port** rose: 10.079 vs 9.0. **h_out** rose: 3.5 vs 1.0.\n- **Battery:** V_batt 3758.678 vs 3786.0 (\u221227.322). A_batt was held at 800.0.\n\n**2. Couplings driving the concessions**\n\nThe largest prices are on the acoustic side: ac:P_siren \u22120.58 and ac:V_acou \u22120.38. These settle the acoustic\u2013structure trade, which is why V_acou and the wall moved. Next are str:t_wall \u22120.27 and board:A_board \u22120.27, which set the wall and board compromises. ac:port \u22120.13 and str:port +0.09 explain the port increase. The antenna cut (\u2212599.754) carries a zero coupling price (ant:V_ant = 0.0), so it was not settled through a priced link. It more likely reflects the binding C1_volume constraint and should be traced to that.\n\n**3. What the design gives up**\n\nIt gives up antenna volume, structural volume, and mesh resolution (r_mesh halved). It also accepts a lower split (0.3 against 0.78). Siren clears its floor of 3.0 at 3.007, but only by 0.007.\n\n**4. Risk to probe**\n\nThe siren margin is 0.007, and P_siren carries the largest price. A small error in the acoustic model (f_res 3490.695, mass 58.638) could push siren below the floor. Reviewers should ask how sensitive siren is to the acoustic model before accepting this allocation.",
+   "grounding": {
+    "numbers": 51,
+    "grounded": 51,
+    "rate": 1.0
+   },
+   "stop_reason": "end_turn",
+   "words": 269
+  },
+  {
+   "direction": "battery_siren",
+   "trace": "**1. Concessions versus original claims**\n- V_ant fell from 1500 to 1019.511 (\u2212480.489), the largest volume concession.\n- V_struct fell from 1800 to 1442.558 (\u2212357.442). V_acou fell from 1460 to 1251.373 (\u2212208.627).\n- V_loop fell from 320 to 252.636, V_hap from 350 to 294.615, V_batt from 3786 to 3709.902, V_ferr from 180 to 159.306, and A_board from 1250 to 1197.\n- t_wall moved from 1.2 to 1.292, and port from 9.0 to 10.437, both past their claims.\n- split fell from 0.78 to 0.3, h_out rose from 1.0 to 3.5, and r_mesh fell from 40 to 20.\n- A_batt held at 800, and A_spr is 321.111 against a claim of 320.\n\n**2. Driving couplings**\nThe largest prices are board:A_board (\u221212.91), str:t_wall (\u221211.16), ac:V_acou (\u221210.46) and ac:P_siren (\u221210.14). Board area and acoustic volume were the most contested links, and the acoustic pair settled the siren result. hap:V_hap (\u22124.4) explains the haptic volume loss. str:port (+3.47) pushed port upward. Binding constraints are C1_volume, O6_pressure, O5_skin_temp, haptic_force and board_routability.\n\n**3. What the design gives up**\nVolume is the main sacrifice, spread across antenna, structure, acoustics and loop. The design also accepts t_wall above claim and a reworked split and mesh. Achieved objectives are runtime 58.577, voice 76.135 and l5 0.093. Siren reaches 3.002 against its 3.0 floor.\n\n**4. Risk to probe**\nThe siren floor is met by only 0.002. ac:P_siren and ac:V_acou carry prices near \u221210, so a small error in the acoustic model (f_res 3490.695, q_ss 5.381, p_siren 0.828) could breach the floor. Also, h_out (3.5 vs 1.0) and r_mesh (20 vs 40) moved far from their claims, yet no price is listed for them. Reviewers should ask what actually drove those changes, since the price list covers only some couplings.",
+   "grounding": {
+    "numbers": 56,
+    "grounded": 56,
+    "rate": 1.0
+   },
+   "stop_reason": "end_turn",
+   "words": 289
+  },
+  {
+   "direction": "rf_voice",
+   "trace": "**Decision trace**\n\n**1. Concessions versus original claims**\n- V_ant: 1500 \u2192 1064.393 (\u2212435.607, the largest cut)\n- V_struct: 1800 \u2192 1400.0 (\u2212400.0)\n- V_acou: 1460 \u2192 1236.649 (\u2212223.351)\n- V_loop: 320 \u2192 234.311 (\u221285.689)\n- V_hap: 350 \u2192 294.615 (\u221255.385)\n- A_board: 1250 \u2192 1197.0 (\u221253.0)\n- r_mesh: 40 \u2192 20.0; split: 0.78 \u2192 0.3\n- Smaller cuts: V_batt \u221232.174, V_ferr \u221229.585\n- Pushed above claim: h_out 1.0 \u2192 3.5, port 9.0 \u2192 10.288, t_wall 1.2 \u2192 1.289, A_batt 800 \u2192 813.748, A_spr 320 \u2192 321.076\n\n**2. Driving couplings (by price magnitude)**\n- str:V_struct (2.22e22) and str:port (\u22122.78e22): the strongest disagreement, tied to the structure-volume and port trade.\n- ant:V_ant (6.80e21): explains the antenna cut.\n- bat:A_batt (\u22126.87e21) and bat:V_batt (8.99e20): battery area and volume.\n- hap:V_hap (4.68e21): explains the haptic cut and the h_out increase.\n- ac:voice (\u22124.33e21) and ac:V_acou (6.97e20): acoustic concession, consistent with voice weighted 0.3.\n- th:t_wall (3.56e21): explains the t_wall overshoot.\n\nThe program direction ranks GNSS first, yet V_ant absorbed the largest cut. This tension needs an explicit answer.\n\n**3. What the design gives up**\nAntenna volume (\u221229%), mesh radius (halved), acoustic and loop volume, and haptic volume. Runtime (59.271) and voice (75.931) are achieved. Siren sits exactly at its 3.0 floor. Binding constraints: C1_volume, O6_pressure, O5_skin_temp, haptic_force, board_routability.\n\n**4. Risk to probe**\nCoupling prices range from about 1e19 to 1e22 with no stated units. Such spread may reflect poor variable scaling rather than real domain disagreement. Rescale the variables and re-solve. If the ranking of str:V_struct and str:port changes, the structure\u2013port concession is a numerical artifact, not a design trade-off.",
+   "grounding": {
+    "numbers": 54,
+    "grounded": 54,
+    "rate": 1.0
+   },
+   "stop_reason": "end_turn",
+   "words": 266
+  },
+  {
+   "direction": "no_direction",
+   "trace": "**Decision trace**\n\n**1. Concessions versus original claims**\n- **Structure:** V_struct 1800 \u2192 1400 (\u2212400), the largest cut. t_wall rose 1.2 \u2192 1.296, and port rose 9.0 \u2192 10.516.\n- **Antenna:** V_ant 1500 \u2192 1107.734 (\u2212392.266).\n- **Acoustic:** V_acou 1460 \u2192 1260.886 (\u2212199.114).\n- **Loop:** V_loop 320 \u2192 219.274 (\u2212100.726).\n- **Battery:** V_batt 3786 \u2192 3685.25 (\u2212100.75); A_batt 800 \u2192 798.588.\n- **Haptic:** V_hap 350 \u2192 294.615 (\u221255.385).\n- **Board:** A_board 1250 \u2192 1197 (\u221253).\n- **Ferrite:** V_ferr 180 \u2192 155.762 (\u221224.238).\n- **Mesh and split:** split 0.78 \u2192 0.3; r_mesh 40 \u2192 20; h_out 1.0 \u2192 3.5.\n\n**2. Couplings driving the concessions**\nThe largest prices are on structure: str:V_struct = 1.278e23, followed by str:port = \u22128.139e22 and str:t_wall = \u22121.833e22. Antenna (ant:V_ant = 7.678e22) and haptic (hap:V_hap = 1.465e22) follow. Battery (bat:A_batt = \u22128.007e22) and the acoustic/voice coupling (ac:voice = \u22124.590e21) also contribute.\n\n**3. What the design gives up**\nAchieved l5 is 0.11, which is weak relative to its weight. Mesh resolution is halved (r_mesh 20), and the split moves to 0.3. Siren sits exactly at its 3.0 floor with no margin. Binding constraints are C1_volume, O6_pressure, O5_skin_temp, haptic_force, and board_routability.\n\n**4. Risk for reviewers to probe**\nCoupling prices of order 1e22 are implausibly large for a normalized problem. Either the variables are poorly scaled or the units are inconsistent. If so, the apparent ranking of which couplings \"drove\" the trade is unreliable. Rescale and re-solve before accepting the allocation.",
+   "grounding": {
+    "numbers": 52,
+    "grounded": 52,
+    "rate": 1.0
+   },
+   "stop_reason": "end_turn",
+   "words": 240
+  }
+ ],
+ "usage": {
+  "input": 12021,
+  "output": 23212,
+  "calls": 10
+ },
+ "wall_s": 97.48224878311157
+}
